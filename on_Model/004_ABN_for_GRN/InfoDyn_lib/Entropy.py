@@ -1,5 +1,38 @@
-import math
+"""
+Entropy.py
+----------
 
+Information-theoretic primitives for discrete random variables estimated from
+empirical probability distributions.
+
+Implemented Quantities
+----------------------
+- Entropy:
+    H(X) = - Σ_x p(x) log p(x)
+
+- Conditional Entropy:
+    H(X|Y) = H(X,Y) - H(Y)
+
+- Mutual Information (with optional conditioning):
+    I(X;Y|Z) = H(X|Z) + H(Y|Z) - H(X,Y|Z)
+
+- Multiple (Multivariate) Mutual Information (recursive):
+    Higher-order interaction information computed recursively using
+    differences of conditional mutual informations.
+
+Inputs
+------
+All classes operate on a `Source_Statistics` object that supplies
+`Generate_Desired_PDF(For)` (see From_Simple_Bin.Source), where `For` specifies
+which variables to marginalize/keep.
+
+Conventions
+-----------
+- Uses natural logarithm (math.log): outputs are in nats.
+- The implementation is intentionally explicit for research transparency.
+"""
+
+import math
 
 class Entropy():
 	def __init__(self, Source_Statistics, For = []):
@@ -48,4 +81,5 @@ class Multiple_Mutual_Information():
 		
 		
 		
+
 		
