@@ -45,10 +45,9 @@ class Source(object):
 		for a_Case in Statistics:
 			Total += Statistics[a_Case]
 		if Total == 0:
-			print("ERROR : ZERO STAT")
-			return -1
+			raise ValueError("Zero total occurrence in statistics")
 		return Total
-
+	
 
 
 		
