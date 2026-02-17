@@ -1,10 +1,38 @@
-# Simulation model for Autonomous Boolean Network(ABN) of the Gene Regulartory Network(GRN)
-#
-# This python script generates time-evolution data of information dynamical values from the ensemble by using the simple binning method
-#
-# The Main reference for the Figure-8 network of ABN : 
-# M. Sun, X. Cheng, and J. E. S. Socolar, Causal structure of oscillations in gene regulatory networks: Boolean analysis of ordinary differential equation attractors, CHAOS 23, 025104 (2013)
+"""
+main.py
+-------
 
+Autonomous Boolean Network (ABN) model for a gene regulatory network (GRN),
+based on a Figure-8 topology inspired by:
+
+    M. Sun, X. Cheng, and J. E. S. Socolar,
+    "Causal structure of oscillations in gene regulatory networks:
+    Boolean analysis of ordinary differential equation attractors",
+    CHAOS 23, 025104 (2013)
+
+Purpose
+-------
+This script defines a concrete ABN dynamics (deterministic, discrete-time)
+and runs an ensemble-based simulation to estimate time-resolved
+information-theoretic quantities on network links, including:
+
+- Shannon entropy H(·)
+- Mutual information I(X;Y)
+- Transfer entropy TE = I(source ; target' | target)
+- Reversed transfer entropy (time-reversed conditioning)
+- Additional decomposition terms (alpha-terms) defined in InfoDyn_lib
+
+Outputs
+-------
+Time-indexed results are written to text files under the directory specified
+by `Save_Directory` (default: ./Temporal_Results/).
+
+Notes
+-----
+- The state alphabet size is Q (Boolean by default: Q=2).
+- Computational cost can grow quickly with ensemble size, time horizon, and
+  network size; see Model_Basics.py for the simulation framework.
+"""
 
 from InfoDyn_lib import Model_Basics
 
@@ -85,4 +113,5 @@ class ABN_Model(Model_Basics.Model_Basic):
 		
 if __name__ == "__main__":
 	ABN_Model(3, 5)
+
 
