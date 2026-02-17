@@ -44,8 +44,8 @@ runtime, but this file keeps the reference (clear, explicit) implementation.
 import random
 import time
 
-from InfoDyn_lib import Information_Network
-from InfoDyn_lib import Several_Information_Variables
+from . import Information_Network
+from . import Several_Information_Variables
 
 class Custom_FIFO():
 	def __init__(self):
@@ -206,5 +206,6 @@ class Model_Basic(Custom_FIFO):
 		for k in self.Info_Network.Nodes:
 
 			self.State_Space[k] = self.Update_Buffer[k]
+
 
 
