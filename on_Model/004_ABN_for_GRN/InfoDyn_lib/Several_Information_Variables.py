@@ -103,9 +103,9 @@ class T2(An_Information_Variable):
 	def Estimate_the_Variable(self):	
 		Bin_Stat = From_Simple_Bin.Source(self.Statistics,["X","Y","Ext","X'","Y'"])
 		
-		self.Value["T^2_{%s %s -> %s}"%(Index_Tuple[2],Index_Tuple[0],Index_Tuple[1])] = Entropy.Multiple_Mutual_Information(Bin_Stat, For = ["Ext","X","Y'"],  Known = ["Y"]).Value
-		self.Value["T^2_{%s -> %s %s}"%(Index_Tuple[2],Index_Tuple[0],Index_Tuple[1])] = Entropy.Multiple_Mutual_Information(Bin_Stat, For = ["Ext","X'","Y'"],  Known = ["X","Y"]).Value
-		self.Value["T^2_{%s %s -> %s}"%(Index_Tuple[2],Index_Tuple[1],Index_Tuple[0])] = Entropy.Multiple_Mutual_Information(Bin_Stat, For = ["Ext","Y","X'"],  Known = ["X"]).Value
+		self.Value["T^2_{%s %s -> %s}"%(self.Index_Tuple[2],self.Index_Tuple[0],self.Index_Tuple[1])] = Entropy.Multiple_Mutual_Information(Bin_Stat, For = ["Ext","X","Y'"],  Known = ["Y"]).Value
+		self.Value["T^2_{%s -> %s %s}"%(self.Index_Tuple[2],self.Index_Tuple[0],self.Index_Tuple[1])] = Entropy.Multiple_Mutual_Information(Bin_Stat, For = ["Ext","X'","Y'"],  Known = ["X","Y"]).Value
+		self.Value["T^2_{%s %s -> %s}"%(self.Index_Tuple[2],self.Index_Tuple[1],self.Index_Tuple[0])] = Entropy.Multiple_Mutual_Information(Bin_Stat, For = ["Ext","Y","X'"],  Known = ["X"]).Value
 		
 		return
 		
@@ -118,4 +118,5 @@ class T2(An_Information_Variable):
 		save_file.close()
 
 		
+
 
