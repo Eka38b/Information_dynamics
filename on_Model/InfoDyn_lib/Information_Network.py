@@ -34,8 +34,8 @@ Notes
   adjacency list is stored symmetrically for convenience.
 """
 
-from InfoDyn_lib import From_Simple_Bin
-from InfoDyn_lib import Entropy
+from . import From_Simple_Bin
+from . import Entropy
 
 class A_Node():
 	def __init__(self):
@@ -111,3 +111,4 @@ class A_Network():
 	
 
 	
+
