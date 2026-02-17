@@ -1,3 +1,38 @@
+"""
+Information_Network.py
+----------------------
+
+Network-level container for information-theoretic variables evaluated on
+nodes and links, using empirical joint statistics.
+
+Objects
+-------
+- A_Node:
+    Stores node-level quantities computed from a link-specific joint
+    distribution (X, Y, X', Y'), such as:
+      - H0: marginal entropy of the node state at time t
+      - partial1: conditional entropy of the next state given current state
+
+- A_Link:
+    Stores link-level quantities for an ordered pair (X,Y), including:
+      - MI   : I(X;Y)
+      - TE1  : transfer entropy (e.g., Y -> X) implemented as I(Y; X' | X)
+      - rTE1 : reversed transfer entropy (time-reversed conditioning)
+      - TE2, rTE2 : analogous quantities for the opposite direction
+    plus alpha-terms used for information-flow decompositions.
+
+Inputs / Assumptions
+--------------------
+All calculations are based on empirical joint counts over (X, Y, X', Y')
+provided by the simulation layer (Model_Basics.py). The counts are converted
+to PDFs via From_Simple_Bin.Source, then evaluated via Entropy.py.
+
+Notes
+-----
+- Entropy and information values use natural logarithms by default (units: nats).
+- Link directionality matters for TE/rTE definitions, even if the underlying
+  adjacency list is stored symmetrically for convenience.
+"""
 
 from InfoDyn_lib import From_Simple_Bin
 from InfoDyn_lib import Entropy
@@ -74,4 +109,5 @@ class A_Network():
 		self.Nodes[Index_Pair[1]].Neighbors.append(Index_Pair[0])
 	
 	
+
 	
