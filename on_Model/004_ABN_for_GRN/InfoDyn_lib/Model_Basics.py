@@ -102,12 +102,12 @@ class Model_Basic(Custom_FIFO):
 		for k in self.Info_Network.Nodes:
 			self.State_Space[k] = 0
 			self.Update_Buffer[k] = 0
-			
+		random.seed(time.time())
+		
 	def Set_Topology(self):
 		pass
 				
 	def Init_State_Space(self):
-		random.seed(time.time())
 		for k in self.Info_Network.Nodes:
 			initial_value = random.randint(0,self.Q-1)
 			self.State_Space[k] = initial_value		
@@ -164,3 +164,4 @@ class Model_Basic(Custom_FIFO):
 		for k in self.Info_Network.Nodes:
 
 			self.State_Space[k] = self.Update_Buffer[k]
+
