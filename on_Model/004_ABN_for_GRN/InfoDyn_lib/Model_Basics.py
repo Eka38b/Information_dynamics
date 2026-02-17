@@ -92,8 +92,8 @@ class Model_Basic(Custom_FIFO):
 		self.Save_Directory = ""
 		
 	def Initialize(self):
-		self.Init_Space()
 		self.Set_Topology()
+		self.Init_Space()
 		
 		self.Register_Properties()
 		self.Save_Properties()
@@ -162,4 +162,5 @@ class Model_Basic(Custom_FIFO):
 		
 	def Update_States(self):
 		for k in self.Info_Network.Nodes:
+
 			self.State_Space[k] = self.Update_Buffer[k]
