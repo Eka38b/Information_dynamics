@@ -40,7 +40,7 @@ class An_Information_Variable():
 class H_XYZ(An_Information_Variable):
 	def __init__(self, Index_Tuple):
 		super().__init__()
-    	self.index_tuple = index_tuple
+		self.Index_Tuple = Index_Tuple
 		self.Name = "H_%s%s%s"%Index_Tuple
 		self.Dimension = 3
 		
@@ -72,7 +72,7 @@ class H_XYZ(An_Information_Variable):
 class H_XYZW(An_Information_Variable):
 	def __init__(self, Index_Tuple):
 		super().__init__()
-    	self.index_tuple = index_tuple		
+		self.Index_Tuple = Index_Tuple		
 		self.Name = "H_%s%s%s%s"%Index_Tuple
 		self.Dimension = 4
 		
@@ -92,7 +92,7 @@ class H_XYZW(An_Information_Variable):
 class T2(An_Information_Variable):
 	def __init__(self, Index_Tuple):	# (X, Y, Ext)
 		super().__init__()
-    	self.index_tuple = index_tuple		
+		self.Index_Tuple = Index_Tuple		
 		self.Name = "Multiple_Transfer_Entropy_order_2"
 		self.Value = {"T^2_{%s %s -> %s}"%(Index_Tuple[2],Index_Tuple[0],Index_Tuple[1]):0,"T^2_{%s -> %s %s}"%(Index_Tuple[2],Index_Tuple[0],Index_Tuple[1]):0, "T^2_{%s %s -> %s}"%(Index_Tuple[2],Index_Tuple[1],Index_Tuple[0]):0}
 		self.Dimension = 5
@@ -118,3 +118,4 @@ class T2(An_Information_Variable):
 		save_file.close()
 
 		
+
