@@ -34,4 +34,4 @@ Core utilities to compute information measures from empirical distributions:
 Example (ABN model):
 ```bash
 cd on_Model
-python -m 004_ABN_for_GRN.main.py
+python -m 004_ABN_for_GRN.main
