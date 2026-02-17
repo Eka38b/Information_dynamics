@@ -34,7 +34,7 @@ Notes
   network size; see Model_Basics.py for the simulation framework.
 """
 
-from InfoDyn_lib import Model_Basics
+from on_Model.InfoDyn_lib import Model_Basics
 
 class ABN_Model(Model_Basics.Model_Basic):
 	def __init__(self, n, m):
@@ -113,5 +113,6 @@ class ABN_Model(Model_Basics.Model_Basic):
 		
 if __name__ == "__main__":
 	ABN_Model(3, 5)
+
 
 
