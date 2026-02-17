@@ -1,3 +1,41 @@
+"""
+Several_Information_Variables.py
+--------------------------------
+
+Optional / extensible definitions of additional information-theoretic variables
+computed from ensemble statistics, beyond the default node/link measures.
+
+Purpose
+-------
+Provides a base class (An_Information_Variable) and example subclasses for:
+
+- Joint entropies over multiple variables (e.g., H(X,Y,Z), H(X,Y,Z,W))
+- Higher-order transfer-like quantities (e.g., order-2 / multivariate TE forms)
+
+Design
+------
+Each variable class follows the same lifecycle:
+
+1) Initialize_Statistics(Q)
+    Allocate an internal count table of the appropriate dimension.
+
+2) Update_Statistics(State_Space, Update_Buffer)
+    Accumulate counts per ensemble sample.
+
+3) Estimate_the_Variable()
+    Convert internal counts -> PDF and compute the target quantity using
+    Entropy.py primitives.
+
+4) Save_the_Variable(...)
+    Persist the computed value(s) to disk.
+
+Notes
+-----
+- Subclasses store an Index_Tuple specifying which nodes/variables are used.
+- Computations are exact (histogram-based) and use natural-log units (nats).
+- For large Q or large variable dimension, memory/time can become significant;
+  consider sparse counts or blockwise evaluation when scaling up.
+"""
 
 from InfoDyn_lib import From_Simple_Bin
 from InfoDyn_lib import Entropy
@@ -118,5 +156,6 @@ class T2(An_Information_Variable):
 		save_file.close()
 
 		
+
 
 
