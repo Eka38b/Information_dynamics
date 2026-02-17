@@ -1,3 +1,45 @@
+"""
+Model_Basics.py
+---------------
+
+Core simulation framework for discrete-time network models with ensemble-based
+estimation of information-theoretic quantities.
+
+Responsibilities
+---------------
+- Define a reusable base class (Model_Basic) that:
+  1) Initializes a network topology (nodes + links)
+  2) Simulates dynamics forward in discrete time
+  3) Accumulates ensemble statistics as joint counts
+     of the form (X, Y, X', Y') for a selected link (X,Y)
+  4) Computes information measures via InfoDyn_lib/Information_Network.py
+  5) Saves node/link variables and alpha-terms to disk
+
+Data Model
+----------
+For a given link (X,Y), the core empirical object is the joint count table:
+
+    C(x, y, x', y')  for x,y,x',y' in {0,...,Q-1}
+
+which is normalized internally (via From_Simple_Bin) to estimate PDFs and
+information quantities.
+
+Extensibility
+-------------
+- Model-specific dynamics must implement:
+    - Set_Topology()
+    - Dynamics_of_States()
+
+- Optional: attach an additional information variable object
+  (Several_Information_Variables.An_Information_Variable subclass)
+  via `self.InfoVar_of_Interest`.
+
+Performance Notes
+-----------------
+Ensemble simulation can be expensive for large Q, long time horizons, or many
+links. Streaming / blockwise strategies may be used to manage memory and
+runtime, but this file keeps the reference (clear, explicit) implementation.
+"""
 
 import random
 import time
@@ -164,4 +206,5 @@ class Model_Basic(Custom_FIFO):
 		for k in self.Info_Network.Nodes:
 
 			self.State_Space[k] = self.Update_Buffer[k]
+
 
