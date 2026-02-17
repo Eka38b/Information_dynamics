@@ -1,12 +1,42 @@
+"""
+From_Simple_Bin.py
+------------------
+
+Minimal utilities for constructing empirical probability distributions from
+discrete count histograms ("simple binning").
+
+Role in the pipeline
+--------------------
+Simulation code produces count tables (histograms) over tuples of discrete
+variables. This module provides a lightweight wrapper to:
+
+- Marginalize a histogram by selecting a subset of variables
+- Normalize counts to a probability distribution function (PDF)
+
+Key Abstractions
+----------------
+- Source(Statistics, Variable_Names)
+    - Statistics:
+        dict mapping an n-tuple (case) -> count
+    - Variable_Names:
+        sequence of names labeling the tuple coordinates
+    - Generate_Desired_PDF(List_of_Mesh_Variables):
+        returns a normalized PDF for the marginal distribution over the
+        specified variables (in the order provided)
+
+Notes
+-----
+- If the total count is zero, an exception is raised to prevent invalid PDFs.
+- This module is intentionally small and explicit to support reproducibility.
+"""
+
 import math
 
 class Source(object):
 	def __init__(self, Statistics, Variable_Names):
-		# Statistics = the dictionary of n-tuple {case : number of occations} , Variable_Names = names of elements of n-tuple
 		self.Statistics = Statistics
 		self.Variable_Names = Variable_Names
 
-	# P(List_of_Mesh_Variables, Other_Variables) -> P(List_of_Mesh_Variables)
 	def Meshed_for_(self, List_of_Mesh_Variables):
 		if List_of_Mesh_Variables == []:
 			return self.Statistics
