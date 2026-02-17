@@ -37,8 +37,8 @@ Notes
   consider sparse counts or blockwise evaluation when scaling up.
 """
 
-from InfoDyn_lib import From_Simple_Bin
-from InfoDyn_lib import Entropy
+from . import From_Simple_Bin
+from . import Entropy
 
 class An_Information_Variable():
 	def __init__(self):
@@ -156,6 +156,7 @@ class T2(An_Information_Variable):
 		save_file.close()
 
 		
+
 
 
 
