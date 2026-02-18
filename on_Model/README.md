@@ -72,10 +72,11 @@ From the repository root:
 
 ```bash
 python -m on_Model.004_ABN_for_GRN.main
-
+```
 Simulation outputs are written to:
  ./Temporal_Results/
 
+---
 
 ## Utilities
 
