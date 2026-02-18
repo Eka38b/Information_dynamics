@@ -15,8 +15,12 @@ Each model folder defines:
 
 ---
 
-## Structure
-on_Model/ ├── InfoDyn_lib/        # Core information-theoretic library ├── Utils/              # Utility scripts (e.g., plotting)  └── <Model_Folder>/     # Specific dynamical models
+## Structure     
+
+on_Model/
+├── InfoDyn_lib/    # Core information-theoretic library 
+├── Utils/          # Utility scripts (e.g., plotting)
+└── <Model_Folder>/ # Specific dynamical models
 ---
 
 ## InfoDyn_lib
