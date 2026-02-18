@@ -84,5 +84,6 @@ Utility scripts are provided in:
  on_Model/Utils/
 
 Example:
-
+```bash
 python on_Model/Utils/plot_results.py --dir on_Model/004_ABN_for_GRN/Temporal_Results --node A --show
+```
