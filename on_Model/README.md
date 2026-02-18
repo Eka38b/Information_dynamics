@@ -18,9 +18,13 @@ Each model folder defines:
 ## Structure     
 
 on_Model/
+
 ├── InfoDyn_lib/    # Core information-theoretic library 
+
 ├── Utils/          # Utility scripts (e.g., plotting)
+
 └── <Model_Folder>/ # Specific dynamical models
+
 ---
 
 ## InfoDyn_lib
@@ -76,6 +80,7 @@ From the repository root:
 python -m on_Model.004_ABN_for_GRN.main
 ```
 Simulation outputs are written to:
+
  ./Temporal_Results/
 
 ---
@@ -83,6 +88,7 @@ Simulation outputs are written to:
 ## Utilities
 
 Utility scripts are provided in:
+
  on_Model/Utils/
 
 Example:
