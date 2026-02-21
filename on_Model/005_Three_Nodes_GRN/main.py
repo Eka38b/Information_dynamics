@@ -108,8 +108,8 @@ class Three_Nodes_Model(Model_Basics.Model_Basic):
 		pass
 		
 if __name__ == "__main__":
-	TEST = Three_Nodes_Model()
 	for i in range(5):
 		TEST = Three_Nodes_Model(i+1, New_Ensemble = True, Post_Analysis = False)
 
 	TEST = Three_Nodes_Model(1, New_Ensemble = False, Post_Analysis = True)
+
