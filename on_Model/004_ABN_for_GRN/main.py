@@ -95,5 +95,6 @@ class ABN_Model(Model_Basics.Model_Basic):
 	def Plot_Data(self):
 		pass
 		
+if __name__ == "__main__":
+	TEST = ABN_Model(5,8)
 
-TEST = ABN_Model(5,8)
