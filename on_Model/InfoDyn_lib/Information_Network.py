@@ -20,19 +20,6 @@ class A_Link():
 		self.Alpha_ = {"2":0, "3_1_I":0, "3_2_I":0, "4_1_I":0, "4_2_I":0, "5_I":0, "6_1_I":0, "6_2_I":0}
 		# Alpha_3_1_I : Alpha_3_1 (t0) = Alpha_3_1_I (t1)- Alpha_3_1_I (t0)
 		
-	def Set_from_List(self, Data_List):
-		if len(Data_List) != (len(self.Var_)+len(self.Alpha_)):
-			print("ERROR : DATA LIST LENGTH")
-			return
-		list_ind = 0
-		for v in self.Var_:
-			self.Var_[v] = Data_List[list_ind]
-			list_ind += 1
-		for a in self.Alpha_:
-			self.Alpha_[a] = Data_List[list_ind]
-			list_ind += 1
-		return
-		
 	def Calculate(self, Estimator):
 		X_t1 = self.Index_Tuple[0]
 		Y_t1 = self.Index_Tuple[1]
@@ -70,4 +57,5 @@ class A_Network():
 		self.Nodes[Index_Tuple[1]].Neighbors.append(Index_Tuple[0])
 	
 	
+
 	
