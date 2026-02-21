@@ -94,7 +94,11 @@ class Estimator(Estimator_Basics.Estimator):
 		Y = self._Add_Jitter(self._Standardize(self._as_2D(Y)))		
 		
 		if len(Known) != 0:
-			Z = self.Source.Ensemble[:,self.Source.Variable_Names.index(Known[0])]
+			known_list = []
+			for k in Known:
+				array_buf = self.Source.Ensemble[:,self.Source.Variable_Names.index(k)]
+				known_list.append(self._as_2D(array_buf))
+			Z = numpy.concatenate(known_list, axis = 1)
 			Z = self._Add_Jitter(self._Standardize(self._as_2D(Z)))
 			
 			epsilon = self._Calculate_kNN_Epsilon([X,Y,Z], k = self.k)
@@ -156,4 +160,5 @@ class Estimator(Estimator_Basics.Estimator):
 			neighbors = NN.radius_neighbors(array_A[i:i+1], radius=r, return_distance = False)[0]
 			counts[i] = max(len(neighbors) - 1 , 0)
 		return counts
+
 	
