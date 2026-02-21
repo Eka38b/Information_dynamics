@@ -27,7 +27,7 @@ class An_Additional_Information_Variable_BIN(Simple_Binning.Estimator):
 class H_XYZ(An_Additional_Information_Variable_BIN):
 	def __init__(self, Q, Index_Tuple):
 		super().__init__(Q, 3)
-		self.Analysis = "Realtime"
+		self.Source.Analysis = "Realtime"
 		self.Source.Type = "not_Pairwise"
 		
 		self.Name = "H_%s%s%s"%Index_Tuple
@@ -41,7 +41,7 @@ class H_XYZ(An_Additional_Information_Variable_BIN):
 class H_XYZW(An_Additional_Information_Variable_BIN):
 	def __init__(self, Q, Index_Tuple):
 		super().__init__(Q, 4)
-		self.Analysis = "Realtime"
+		self.Source.Analysis = "Realtime"
 		self.Source.Type = "not_Pairwise"
 		
 		self.Name = "H_%s%s%s%s"%Index_Tuple
@@ -54,7 +54,7 @@ class H_XYZW(An_Additional_Information_Variable_BIN):
 class T2(An_Additional_Information_Variable_BIN):
 	def __init__(self, Q, Index_Tuple): # Index_Tuple = (X, Y, Ext)
 		super().__init__(Q, 5)
-		self.Analysis = "Realtime"
+		self.Source.Analysis = "Realtime"
 		self.Source.Type = "not_Pairwise"
 		
 		self.Name = "Multiple_Transfer_Entropy_%s_%s_%s"%Index_Tuple
@@ -72,4 +72,5 @@ class T2(An_Additional_Information_Variable_BIN):
 		self.Value["T^2_v3"] = self.Multiple_Mutual_Information(For = [Ext_t1,Y_t1,X_t2],  Known = [X_t1])
 		return
 		
+
 		
