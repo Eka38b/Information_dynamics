@@ -21,6 +21,7 @@ This folder contains **model examples** and the reusable **InfoDyn_lib** toolkit
 Most models can be run from within the repository root (so `on_Model` is importable):
 
 ```bash
+cd Information_dynamics
 python -m on_Model.004_ABN_model_of_GRN.main
 python -m on_Model.005_Three_Nodes_GRN.main
 ```
