@@ -1,4 +1,60 @@
+"""
+KSG.py
 
+k-Nearest Neighbor estimator for entropy, mutual information (MI),
+and conditional mutual information (CMI) in continuous-state systems.
+
+Main Algorithm
+--------------
+Implements a Kraskov–Stögbauer–Grassberger (KSG)-type estimator using:
+
+- Chebyshev (L∞) metric
+- k-nearest neighbor radius ε_i in joint space
+- Digamma-based bias correction
+
+For conditional mutual information:
+
+    I(X; Y | Z)
+
+the estimator follows the Frenzel–Pompe extension:
+
+    I = ψ(k) + ⟨ ψ(n_z + 1)
+                 - ψ(n_xz + 1)
+                 - ψ(n_yz + 1) ⟩
+
+where neighbor counts are computed using the same ε_i
+obtained from the full (X,Y,Z) space.
+
+Core References
+---------------
+Kraskov, A., Stögbauer, H., & Grassberger, P. (2004).
+Estimating mutual information.
+Physical Review E, 69, 066138.
+
+Frenzel, S., & Pompe, B. (2007).
+Partial mutual information for coupling analysis.
+Physical Review Letters, 99, 204101.
+
+Outputs
+-------
+- Entropy H(X)
+- Mutual Information I(X;Y)
+- Conditional Mutual Information I(X;Y|Z)
+
+Notes on Numerical Issues
+-------------------------
+- High-dimensional conditioning (large dim(Z)) leads to high variance.
+- Sample complexity increases exponentially with dimension.
+- Small ensemble sizes may produce negative MI estimates due to bias.
+- Jitter is added to break distance degeneracy.
+- Standardization is applied per dimension.
+
+Limitations
+-----------
+- Designed for ensemble-based estimation.
+- Not suitable for extremely high-dimensional conditioning without
+  dimensionality reduction.
+"""
 import numpy
 from scipy.special import digamma
 from sklearn.neighbors import NearestNeighbors
@@ -162,3 +218,4 @@ class Estimator(Estimator_Basics.Estimator):
 		return counts
 
 	
+
