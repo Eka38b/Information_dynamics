@@ -1,4 +1,47 @@
+"""
+Model_Basics.py
 
+Core simulation framework for ensemble-based information dynamics.
+
+Main Responsibilities
+---------------------
+- Manage network topology
+- Construct ensemble realizations
+- Control time evolution
+- Support two modes:
+    (1) Realtime estimation
+    (2) Post-analysis estimation
+
+Workflow
+--------
+1. Initialize topology
+2. Construct ensemble of trajectories
+3. Update states over time
+4. Compute information measures via selected estimator
+5. Save temporal results
+
+Outputs
+-------
+- Time-resolved entropy and information variables
+- Optional ensemble snapshots for post-analysis
+
+Design Philosophy
+-----------------
+Separates:
+- Simulation logic
+- Estimation logic
+- Network representation
+
+Notes
+-----
+- Realtime mode recomputes ensemble slices per time step.
+- Post-analysis mode stores ensemble trajectories to disk.
+- Large ensembles may require memory optimization.
+
+Limitations
+-----------
+- Current implementation assumes synchronous discrete-time updates.
+"""
 import random
 import time
 
@@ -202,4 +245,5 @@ class Model_Basic(Custom_FIFO):
 				
 	def Dynamics_of_States(self):
 		raise NotImplementedError("Need to override this function")
+
 	
