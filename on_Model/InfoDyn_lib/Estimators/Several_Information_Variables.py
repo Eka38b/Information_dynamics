@@ -1,3 +1,81 @@
+"""
+Several_Information_Variables.py
+
+Composite (multi-variable) information measures built on top of the
+base estimator interface. This module defines convenience classes for
+computing and storing higher-order information quantities that are
+frequently required in information-dynamical decompositions.
+
+Main Idea
+---------
+Many network information terms (e.g., transfer-entropy–like quantities,
+partial information terms, or multi-variable corrections) can be
+expressed as combinations of entropies and (conditional) mutual
+informations over joint variables.
+
+This module provides a pattern:
+
+1) Define a new "additional information variable" class.
+2) Specify which variables are needed (e.g., X, Y, X', Y').
+3) Update the underlying estimator's data source (realtime or post-analysis).
+4) Compute the target quantity using entropy/MI/CMI identities.
+5) Store the resulting time series into `Temporal_Results/`.
+
+Core References
+---------------
+Cover, T. M., & Thomas, J. A. (2006).
+Elements of Information Theory.
+
+McGill, W. J. (1954).
+Multivariate information transmission.
+Psychometrika, 19, 97–116.
+(For interaction information / multi-variable MI concepts.)
+
+Schreiber, T. (2000).
+Measuring information transfer.
+Physical Review Letters, 85, 461–464.
+(For transfer entropy as conditional mutual information.)
+
+Notes on Outputs
+----------------
+Classes in this module are designed to produce:
+
+- A scalar information value at each time step (or analysis step)
+- Saved as a time series, typically in:
+      <Model>/Temporal_Results/
+
+Depending on the model workflow:
+- Realtime mode writes values during simulation.
+- Post-analysis mode computes values from stored ensemble snapshots.
+
+Numerical / Practical Notes
+---------------------------
+1) Dimensionality growth
+   Many composite quantities require joint spaces such as (X, Y, Z, ...).
+   For continuous estimators (KSG), variance increases rapidly with the
+   total joint dimension. For discrete/binning estimators, memory scales
+   as Q^dimension.
+
+2) Conditioning complexity
+   Conditional terms like I(X;Y|Z) require neighbor counts (KSG) or
+   joint histograms (binning). High-dimensional Z can make the estimate
+   unreliable without dimensionality reduction or parent-set truncation.
+
+3) Negative estimates
+   kNN-based MI/CMI estimates can be slightly negative due to finite-sample
+   bias. This is a known numerical artifact; consider reporting confidence
+   intervals, using bias correction, or truncating small negatives to zero
+   depending on your reporting policy.
+
+Limitations
+-----------
+- This module does not implement new estimators; it composes existing
+  estimator calls to build derived quantities.
+- Reliability depends on the estimator and the effective dimension of
+  the joint/conditioning spaces.
+- For large networks, full multi-variable quantities may be infeasible;
+  consider sparse/parent-set approximations.
+"""
 
 from on_Model.InfoDyn_lib.Estimators import Estimator_Basics 
 from on_Model.InfoDyn_lib.Estimators import Simple_Binning
@@ -74,3 +152,4 @@ class T2(An_Additional_Information_Variable_BIN):
 		
 
 		
+
