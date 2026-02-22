@@ -1,3 +1,45 @@
+"""
+Simple_Binning.py
+
+Histogram-based estimator for entropy and information measures
+in discrete-state systems.
+
+Main Algorithm
+--------------
+- Builds joint frequency tables over Q^d state space.
+- Computes entropy using:
+
+    H = - Σ p log p
+
+- Conditional entropy and mutual information are derived
+  via marginalization.
+
+Designed primarily for Boolean or small-Q systems.
+
+Core References
+---------------
+Cover, T. M., & Thomas, J. A. (2006).
+Elements of Information Theory.
+
+Outputs
+-------
+- Entropy H(X)
+- Conditional entropy H(X|Y)
+- Mutual information I(X;Y)
+- Multi-variable mutual information
+
+Notes on Numerical Issues
+-------------------------
+- Memory scales as Q^dimension.
+- For large dimension, sparse counting is recommended.
+- Zero-count states are ignored in entropy calculation.
+- Suitable for discrete models only.
+
+Limitations
+-----------
+- Not appropriate for continuous variables.
+- Exponential growth in state space size.
+"""
 import math
 
 from on_Model.InfoDyn_lib.Estimators import Estimator_Basics
