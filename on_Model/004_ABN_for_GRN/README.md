@@ -1,4 +1,4 @@
-# 004_ABN_model_of_GRN
+# 004_ABN_for_GRN
 
 Autonomous Boolean Network (ABN) model example for a gene regulatory network (GRN).
 
