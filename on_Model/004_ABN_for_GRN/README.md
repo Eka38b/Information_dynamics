@@ -12,3 +12,7 @@ Autonomous Boolean Network (ABN) model example for a gene regulatory network (GR
 
 - `Temporal_Results/`  
   Time series of information variables written by the model.
+
+## References
+
+- Sun, M., Cheng, X., & Socolar, J. E. S. (2013). Causal structure of oscillations in gene regulatory networks: Boolean analysis of ordinary differential equation attractors. Chaos, 23(2), 025104. https://doi.org/10.1063/1.4807733
