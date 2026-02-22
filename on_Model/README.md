@@ -22,7 +22,7 @@ Most models can be run from within the repository root (so `on_Model` is importa
 
 ```bash
 cd Information_dynamics
-python -m on_Model.004_ABN_model_of_GRN.main
+python -m on_Model.004_ABN_for_GRN.main
 python -m on_Model.005_Three_Nodes_GRN.main
 ```
 
