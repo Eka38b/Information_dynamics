@@ -33,7 +33,19 @@ Notes
 - High-dimensional conditioning may lead to large variance.
 - Ensemble size must be sufficiently large.
 - Jitter added for distance degeneracy handling.
+
+Data Attribution
+----------------
+The file `data_ex.mat` is sourced from the official implementation
+associated with:
+
+Qiao et al. (2022), eLife 11:e76188.
+
+It contains motif definitions and parameter sets used in the
+original publication. The file is redistributed here for
+reproducibility within the present framework.
 """
+
 import random
 import numpy
 from scipy import io
@@ -147,5 +159,6 @@ if __name__ == "__main__":
 		TEST = Three_Nodes_Model(i+1, New_Ensemble = True, Post_Analysis = False)
 
 	TEST = Three_Nodes_Model(1, New_Ensemble = False, Post_Analysis = True)
+
 
 
