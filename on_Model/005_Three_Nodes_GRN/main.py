@@ -1,4 +1,39 @@
+"""
+005_Three_Nodes_GRN/main.py
 
+Three-node gene regulatory motif model with continuous dynamics.
+
+Main Dynamics
+-------------
+- Ordinary differential equations (ODEs)
+- Ensemble of initial conditions
+- Noise-robust oscillatory motif
+
+Estimation Method
+-----------------
+- Post-analysis mode
+- KSG k-nearest neighbor estimator
+- Supports conditional mutual information
+
+Core Reference
+--------------
+Qiao, L., Zhang, Z.-B., Zhao, W., Wei, P., & Zhang, L. (2022).
+Network design principle for robust oscillatory behaviors
+with respect to biological noise.
+eLife, 11, e76188.
+
+Outputs
+-------
+- Ensemble trajectories
+- Entropy and transfer entropy estimates
+- Conditional information measures
+
+Notes
+-----
+- High-dimensional conditioning may lead to large variance.
+- Ensemble size must be sufficiently large.
+- Jitter added for distance degeneracy handling.
+"""
 import random
 import numpy
 from scipy import io
@@ -112,4 +147,5 @@ if __name__ == "__main__":
 		TEST = Three_Nodes_Model(i+1, New_Ensemble = True, Post_Analysis = False)
 
 	TEST = Three_Nodes_Model(1, New_Ensemble = False, Post_Analysis = True)
+
 
