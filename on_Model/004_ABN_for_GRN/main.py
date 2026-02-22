@@ -51,7 +51,7 @@ class ABN_Model(Model_Basics.Model_Basic):
 		self.Simulation_Time_Limit = 40
 		self.Size_of_Ensemble = 10000
 		
-		self.Save_Directory = "./on_Model/004_ABN_model_of_GRN/Temporal_Results/"
+		self.Save_Directory = "./on_Model/004_ABN_for_GRN/Temporal_Results/"
 		
 		self.Selected = []
 		self.Initialize()		
@@ -126,5 +126,6 @@ class ABN_Model(Model_Basics.Model_Basic):
 		
 if __name__ == "__main__":
 	TEST = ABN_Model(5,8)
+
 
 
