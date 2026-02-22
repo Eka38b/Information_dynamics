@@ -1,4 +1,34 @@
+"""
+Information_Network.py
 
+Defines the network abstraction used to compute node-level
+and link-level information variables.
+
+Main Components
+---------------
+- A_Node: stores entropy-related quantities.
+- A_Link: stores MI, TE, reversed TE, and derived α terms.
+- A_Network: manages nodes, links, and adjacency structure.
+
+Core Functionality
+------------------
+- Encodes directed links
+- Computes:
+    H(X)
+    I(X;Y)
+    Transfer entropy
+    Derived α parameters
+
+Notes
+-----
+- Assumes estimator supports multi-variable conditioning.
+- Variable naming conventions must be consistent across modules.
+- Link calculations rely on correct conditional entropy logic.
+
+Limitations
+-----------
+- α terms may be unstable in high dimensions.
+"""
 
 class A_Node():
 	def __init__(self, Index):
@@ -59,3 +89,4 @@ class A_Network():
 	
 
 	
+
