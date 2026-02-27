@@ -124,6 +124,7 @@ def load_node_series(directory, node):
 
 def plot_multi_series(t, ys, title, ylabel, save=None, show=False):
     plt.figure()
+    plt.rcParams['axes.prop_cycle'] = plt.cycler(color=plt.cm.tab20.colors)
     for name, y in ys.items():
         plt.plot(t, y, label=name)
     plt.xlabel("time")
