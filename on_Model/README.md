@@ -5,7 +5,7 @@ This folder contains **model examples** and the reusable **InfoDyn_lib** toolkit
 
 ## Structure
 
-- `004_ABN_model_of_GRN/`  
+- `004_ABN_for_GRN/`  
   Discrete **Autonomous Boolean Network** (ABN) example for a gene regulatory network (GRN).  
   Uses the `Simple_Binning` estimator for realtime histogram-based estimation.
 
