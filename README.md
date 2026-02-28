@@ -217,3 +217,10 @@ python -m on_Model.Utils.plot_results \
     --link A B1
     --show   
 ```
+---
+## License
+The source code in this repository is released under the MIT License (see LICENSE).
+
+All figures and data contained in the Data/ directory are released under the Creative Commons Attribution 4.0 International (CC BY 4.0) License:
+
+https://creativecommons.org/licenses/by/4.0/⁠�
