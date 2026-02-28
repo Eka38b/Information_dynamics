@@ -1,0 +1,9 @@
+Model_Name : Figure-8 ABN for GRN
+Estimator : Simple Binning
+Q : 2
+N_B : 8
+N_C : 5
+Simulation_Time_Limit : 40
+Size_of_Ensemble : 10000
+Nodes : A|B1|B2|B3|B4|B5|B6|B7|B8|C1|C2|C3|C4|C5|
+Links : B1,B2| B2,B3| B3,B4| B4,B5| B5,B6| B6,B7| B7,B8| C1,C2| C2,C3| C3,C4| C4,C5| B1,A| B8,A| C1,A| C5,A| 
