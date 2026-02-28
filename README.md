@@ -1,5 +1,7 @@
 # Information_dynamics
 
+[![DOI](https://zenodo.org/badge/1159713412.svg)](https://doi.org/10.5281/zenodo.18817495)
+
 A computational framework for studying **information-theoretic dynamics in non-stationary systems**, including entropy, mutual information, transfer entropy, and derived dynamical quantities on discrete-time models.
 
 This repository provides:
@@ -44,6 +46,10 @@ Information_dynamics/ │
                                       ├── 005_Three_Nodes_GRN/ │   
                                       
                                       └── InfoDyn_lib/ │
+                                      
+                      └── Data/ │
+                      
+                                  ├── on_Model004/ │   
 ---
 
 ### `on_Model/`
@@ -58,6 +64,10 @@ Reusable infrastructure including:
   - `Simple_Binning` (discrete histogram estimator)
   - `KSG` (k-nearest neighbor estimator for continuous variables)
   - Additional multi-variable information tools
+ 
+### `Data/`
+  - Processed outputs
+  - Supporting datasets
 
 ---
 
@@ -217,6 +227,22 @@ python -m on_Model.Utils.plot_results \
     --link A B1
     --show   
 ```
+---
+
+##  Current Citable Release
+
+The dataset and implementation corresponding to **Model 004 (ABN for GRN)**  
+used in the manuscript:
+
+> “Dynamical Equations of Mutual Information and Transfer Entropy on Discrete Time”
+
+are archived at Zenodo:
+
+DOI: https://doi.org/10.5281/zenodo.18817495
+Version: v0.1.1
+
+This version guarantees reproducibility of the published results and figures.
+
 ---
 ## License
 The source code in this repository is released under the MIT License (see LICENSE).
