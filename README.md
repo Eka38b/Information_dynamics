@@ -244,6 +244,18 @@ Version: v0.1.1
 This version guarantees reproducibility of the published results and figures.
 
 ---
+## Reproducibility
+
+Step-by-step instructions for reproducing the numerical simulations and
+figures reported in the manuscript are provided in the model-specific
+documentation.
+
+For the archived dataset corresponding to Version v0.1.1
+(Model 004 — ABN for GRN), see:
+
+Data/on_Model004/README.md
+
+---
 ## License
 The source code in this repository is released under the MIT License (see LICENSE).
 
