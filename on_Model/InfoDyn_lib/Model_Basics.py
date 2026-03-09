@@ -210,7 +210,7 @@ class Model_Basic(Custom_FIFO):
 			Save_File.write("E|\n")
 			for t in range(self.Simulation_Time_Limit-1):
 				value = self.Estimate_E(t, ind_node)
-				Save_File.write("%03d:"%t)
+				Save_File.write("%03d:"%(t+1))
 				if value >= 0:
 					Save_File.write("+%0.3f|\n"%value)
 				else:
@@ -268,4 +268,5 @@ class Model_Basic(Custom_FIFO):
 				
 	def Dynamics_of_States(self):
 		raise NotImplementedError("Need to override this function")
+
 	
