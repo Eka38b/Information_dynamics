@@ -1,6 +1,14 @@
-"""Package initializer for `on_Model`.
-
-This package is part of the *Information_dynamics* project and contains
-models (e.g., ABN/GRN examples) plus the reusable `InfoDyn_lib` toolkit.
 """
+on_Model
 
+This package contains model-based simulations.
+
+In these modules:
+1. A dynamical system generates time-series data.
+2. Information-theoretic quantities are estimated from the data.
+
+These examples are intended for:
+- validating the framework against explicit models
+- studying estimator behavior
+- connecting mechanisms to information dynamics
+"""
