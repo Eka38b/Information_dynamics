@@ -179,11 +179,11 @@ class Model_Basic(Custom_FIFO):
 					if t >= self.Simulation_Cut_down and t < self.Simulation_Cut_up:
 						self.Construct_Ensemble(t+1)
 				print("\tComplete simulations for the node %s"%self.Simulation_Nodes[0])
-				
+				self.Post_Estimation_for_E()
 		elif self.Estimator.Source.Analysis == "Post_Analysis":
 			self.Construct_Ensemble(self.Simulation_Time_Limit)
 			
-		self.Post_Estimation_for_E()
+		
 				
 	def Construct_Ensemble(self, Simulation_Time):
 		self.Estimator.Source.Init_Source_Realtime(self.Simulation_Nodes)
