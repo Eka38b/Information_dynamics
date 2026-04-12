@@ -24,7 +24,7 @@ class ABN_Model(Model_Basics.Model_Basic):
 		
 		self.Save_Directory = "./on_Model/004_ABN_for_GRN/Temporal_Results/"
 		
-		self.Selected_Nodes = ["A","B1","B8","C1","C5"]
+		self.Selected_Nodes = ["A","B1","B%d"%n,"C1","C%d"%m]
 		self.Selected_Links = []
 		
 		self.Initialize()		
