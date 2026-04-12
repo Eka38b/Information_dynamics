@@ -29,7 +29,7 @@ These variables evolve in discrete time according to **information dynamic equat
 The evolution is governed by update rules of the form:
 
 - Local balance of incoming and outgoing information flows
-- Node-level source/sink term: `E`
+- Node-level source/sink term (multivariate effects): `E`
 - Control parameters: `α` (alpha terms)
 
 The equations define a closed dynamical system without requiring:
@@ -42,11 +42,11 @@ The equations define a closed dynamical system without requiring:
 
 The parameters:
 
-- `α₁`: node-level control (source/sink adjustment)
-- `α₂`: mutual information adjustment
-- `α₃`: transfer entropy control (forward flow)
-- `α₄`, `α₅`: auxiliary coupling terms
-- `α₆`: reversed transfer entropy control
+- `α1`: node-level control (source/sink adjustment)
+- `α2`: mutual information adjustment
+- `α3`: transfer entropy control (forward flow)
+- `α4`, `α5`: auxiliary coupling terms
+- `α6`: reversed transfer entropy control
 
 These parameters act as **external controls or potentials** that modify
 information flow dynamics.
@@ -64,7 +64,7 @@ The framework allows imposing constraints such as:
 
 > selected transfer entropy flows are forced to vanish
 
-This is implemented by solving for appropriate `α₃` and `α₆` values
+This is implemented by solving for appropriate `α3` and `α6` values
 subject to consistency conditions across the network.
 
 This feature is essential for:
