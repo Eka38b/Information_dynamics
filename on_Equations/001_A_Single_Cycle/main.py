@@ -63,14 +63,14 @@ class ID_of_Single_Ring(Information_Dynamic_Equation.Information_Dynamics):
 	def Set_Overall_Alphas_and_E(self):
 		for t in range(self.Simulation_Time_Limit):
 			for ind_link in self.Info_Network.Links:
-				self.Info_Network.Links[ind_link].Alpha_["2"][0] = 0
-				self.Info_Network.Links[ind_link].Alpha_["3_1"][0] = 0
-				self.Info_Network.Links[ind_link].Alpha_["3_2"][0] = 0
-				self.Info_Network.Links[ind_link].Alpha_["6_1"][0] = 0
-				self.Info_Network.Links[ind_link].Alpha_["6_2"][0] = 0
+				self.Info_Network.Links[ind_link].Alpha_["2"][t] = 0
+				self.Info_Network.Links[ind_link].Alpha_["3_1"][t] = 0
+				self.Info_Network.Links[ind_link].Alpha_["3_2"][t] = 0
+				self.Info_Network.Links[ind_link].Alpha_["6_1"][t] = 0
+				self.Info_Network.Links[ind_link].Alpha_["6_2"][t] = 0
 			for ind_node in self.Info_Network.Nodes:
-				self.Info_Network.Nodes[ind_node].Alpha_["1"][0] = 0
-				self.Info_Network.Nodes[ind_node].Var_["E"][0] = 0
+				self.Info_Network.Nodes[ind_node].Alpha_["1"][t] = 0
+				self.Info_Network.Nodes[ind_node].Var_["E"][t] = 0
 		
 if __name__ == "__main__":
 				
