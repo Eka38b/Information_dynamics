@@ -1,0 +1,27 @@
+cff-version: 1.2.0
+title: "Information_dynamics"
+message: "If you use this software, please cite it as below."
+type: software
+
+authors:
+  - family-names: "Lee"
+    given-names: "Yunju"
+
+repository-code: "https://github.com/Eka38b/Information_dynamics"
+
+version: "0.1.3"
+date-released: 2026-04-13
+
+abstract: >
+  A framework for formulating and simulating dynamical equations of
+  information-theoretic quantities, including entropy, mutual information,
+  transfer entropy, and reversed transfer entropy, on networks.
+
+keywords:
+  - information dynamics
+  - transfer entropy
+  - mutual information
+  - complex systems
+  - non-equilibrium systems
+
+license: "MIT"
