@@ -41,7 +41,7 @@ on_Model/004_ABN_for_GRN/Temporal_Results/
 
 To generate figures corresponding to specific regulatory links:
 
-python -m on_Model.Utils.plot_results \
+python -m Utils.plot_results \
   --dir on_Model/004_ABN_for_GRN/Temporal_Results/ \
   --link B4 B5 \
   --paper
@@ -54,7 +54,7 @@ This command reproduces link-level results used in the manuscript.
 
 To generate node-level plots:
 
-python -m on_Model.Utils.plot_results \
+python -m Utils.plot_results \
   --dir on_Model/004_ABN_for_GRN/Temporal_Results/ \
   --node B1 \
   --paper
