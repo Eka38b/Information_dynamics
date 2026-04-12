@@ -1,138 +1,120 @@
-# InfoDyn_lib
+# Core Module
 
-Core library for computing information-theoretic quantities in networked dynamical systems.
+The `Core/` directory provides the fundamental implementation of the
+information dynamics framework.
 
-This module provides:
-
-- Network abstraction
-- Simulation engine
-- Information estimators
-- Multi-variable information utilities
-
-It is designed to support both discrete and continuous models in `on_Model/`.
+It defines the mathematical and computational structure underlying
+all simulations in `on_Equations/` and `on_Model/`.
 
 ---
 
-## Structure
+## Conceptual Overview
 
-InfoDyn_lib/ │ 
+The framework treats information-theoretic quantities as **dynamical variables**
+defined on a network.
 
-             ├── Information_Network.py 
-             
-             ├── Model_Basics.py 
-             
-             └── Estimators/ ├── Estimator_Basics.py 
-             
-                               ├── Simple_Binning.py 
-                               
-                               ├── KSG.py 
-                               
-                               └── Several_Information_Variables.py
----
+For each node and link, the following variables are considered:
 
-## Core Components
+- Entropy: `H`
+- Mutual Information: `MI`
+- Transfer Entropy: `TE`
+- Reversed Transfer Entropy: `rTE`
 
-### 1. Information_Network.py
-
-Defines:
-
-- `A_Node`
-- `A_Link`
-- `A_Network`
-
-Responsible for:
-
-- Storing entropy, mutual information, and transfer entropy values
-- Managing network topology
-- Computing link-level information variables
+These variables evolve in discrete time according to **information dynamic equations**.
 
 ---
 
-### 2. Model_Basics.py
+## Information Dynamic Equations
 
-Provides the simulation framework:
+The evolution is governed by update rules of the form:
 
-- Ensemble construction
-- Time evolution control
-- Realtime vs post-analysis modes
-- Data saving utilities
+- Local balance of incoming and outgoing information flows
+- Node-level source/sink term: `E`
+- Control parameters: `α` (alpha terms)
 
-All models inherit from `Model_Basic`.
-
----
-
-## Estimators
-
-All estimators inherit from `Estimator_Basics.Estimator`.
-
-### Simple_Binning
-
-- Histogram-based estimator
-- Designed for discrete systems (Boolean, small Q)
-- Efficient for large ensembles
-- Used in Model 004
-
-Supports:
-
-- Entropy
-- Conditional entropy
-- Mutual information
-- Multi-variable mutual information
+The equations define a closed dynamical system without requiring:
+- master equations
+- Fokker–Planck equations
 
 ---
 
-### KSG (k-Nearest Neighbor Estimator)
+## Role of Control Parameters (α)
 
-Continuous-variable estimator based on:
+The parameters:
 
-Kraskov, A., Stögbauer, H., & Grassberger, P. (2004).  
-*Estimating mutual information*. Physical Review E, 69(6), 066138.
+- `α₁`: node-level control (source/sink adjustment)
+- `α₂`: mutual information adjustment
+- `α₃`: transfer entropy control (forward flow)
+- `α₄`, `α₅`: auxiliary coupling terms
+- `α₆`: reversed transfer entropy control
 
-Features:
+These parameters act as **external controls or potentials** that modify
+information flow dynamics.
 
-- Chebyshev metric
-- Supports:
-  - Entropy
-  - Mutual information
-  - Conditional mutual information
-- Designed for ensemble-based post-analysis
-- Used in Model 005
-
----
-
-### Several_Information_Variables
-
-Provides additional composite information measures, including:
-
-- Higher-order entropies
-- Multi-variable transfer entropy–like quantities
-- Extended network information terms
+They can be:
+- fixed
+- time-dependent
+- solved under constraints (e.g., blocking flows)
 
 ---
 
-## Workflow Design
+## Blocking Flow Condition
 
-Two estimation modes are supported:
+The framework allows imposing constraints such as:
 
-### Realtime Mode
+> selected transfer entropy flows are forced to vanish
 
-- Information measures computed during simulation
-- Used primarily with `Simple_Binning`
+This is implemented by solving for appropriate `α₃` and `α₆` values
+subject to consistency conditions across the network.
 
-### Post-Analysis Mode
+This feature is essential for:
+- studying constrained information circulation
+- analyzing network-level flow control
+- constructing stationary solutions
 
-- Ensemble saved to disk
-- Information measures computed afterward
-- Used with `KSG` for high-dimensional continuous systems
+---
+
+## File Structure
+
+Key components inside `Core/`:
+
+- `Information_Dynamic_Equation.py`
+  - Implements update rules for `MI`, `TE`, `rTE`, `H`
+
+- `Information_Network.py`
+  - Defines network structure (nodes, links, neighbors)
+
+- `Model_Basics.py`
+  - Base class for simulation workflows
+
+- `Estimators/`
+  - Estimation methods for information-theoretic quantities
 
 ---
 
 ## Design Philosophy
 
-This library is built to:
+- **Modular**: equations, estimators, and models are separated
+- **Extensible**: new models or estimators can be added easily
+- **Dual approach**:
+  - direct equation-based dynamics (`on_Equations`)
+  - data-driven estimation (`on_Model`)
 
-- Separate simulation from estimation
-- Support arbitrary network topologies
-- Enable multi-variable conditioning
-- Scale from pairwise to network-level analysis
-- Remain modular for research extensions
+---
+
+## Notes
+
+- All updates are discrete-time.
+- The framework assumes consistent indexing of variables over time.
+- Care must be taken when mixing realtime and post-analysis modes.
+
+---
+
+## Relation to Manuscript
+
+This module implements the theoretical framework developed in the manuscript:
+
+> "Dynamical Equations of Mutual Information and Transfer Entropy in Discrete Time"
+
+The variables and update rules correspond directly to the equations
+introduced in that work.
