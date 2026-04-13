@@ -55,18 +55,24 @@ Typical considerations include:
 
 ## Included Examples
 
+### 001_Toy_Model_A
+
+- Toy cyclic network with external source
+- Discrete-state stochastic dynamics with internal coupling and noise
+- External interaction is switched on after a threshold time
+- Useful for studying the effect of external perturbation on cyclic information flow
+
 ### 004_ABN_for_GRN
 
 - Gene regulatory network (GRN) model
-- Simulates interactions among nodes
-- Produces time-series data
-- Used to estimate MI, TE, and rTE
+- Simulates interactions among nodes in the figure-8 network
+- Bianry state deterministic dynamics with ensemble
 
 ### 005_Three_Nodes_GRN
 
 - Three-node oscillatory network
-- Demonstrates cyclic information flow
-- Useful for analyzing temporal patterns
+- Demonstrates five motifs.
+- Continuous dynamics with KSG estimator.
 
 ---
 
