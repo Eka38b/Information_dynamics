@@ -107,4 +107,3 @@ python -m on_Equations.005_Oscillatory_Two_Cycles.main
 - Initial conditions are critical
 - Stability depends on alpha parameters
 - Blocking constraints may introduce nontrivial coupling
-- 
