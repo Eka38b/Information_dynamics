@@ -101,7 +101,7 @@ def cycle_df(model, cycle_links):
         cycle_avg["MI"].append(sum(model.Info_Network.Links[l].Var_["MI"][t] for l in cycle_links) / len(cycle_links))
         cycle_avg["TE"].append(sum(model.Info_Network.Links[l].Var_["TE2"][t] for l in cycle_links) / len(cycle_links))
         cycle_avg["rTE"].append(sum(model.Info_Network.Links[l].Var_["rTE1"][t] for l in cycle_links) / len(cycle_links))
-        cycle_avg["time"].append(model.Info_Network.Nodes["B2"].Var_["E"][t])
+        cycle_avg["E"].append(model.Info_Network.Nodes["B2"].Var_["E"][t])
 
     return cycle_avg
 
