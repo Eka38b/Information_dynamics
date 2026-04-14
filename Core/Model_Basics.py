@@ -276,12 +276,11 @@ class Model_Basic(Custom_FIFO):
 	def Post_Analysis(self):
 		for ind_tuple in self.Selected_Links:
 			self.Simulation_Nodes = ind_tuple
-			for t in range(int(self.Simulation_Time_Limit/self.Save_Interval)):
-				if t != 0:
-					ensemble_data = self.Ensemble_Directory+"at_time%03d.txt"%(t*self.Save_Interval)
-					self.Estimator.Source.Init_Source_Post_Analysis(self.Info_Network.Nodes, ensemble_data)
-					self.Calculate_Info_Vars()
-					self.Save_Info_Vars(t*self.Save_Interval)
+			for t in range(int(self.Simulation_Time_Limit/self.Save_Interval)-1):
+				ensemble_data = self.Ensemble_Directory+"at_time%03d.txt"%((t+1)*self.Save_Interval)
+				self.Estimator.Source.Init_Source_Post_Analysis(self.Info_Network.Nodes, ensemble_data)
+				self.Calculate_Info_Vars()
+				self.Save_Info_Vars(t+1)
 				
 	def Set_Topology(self):
 		raise NotImplementedError("Need to override this function")
