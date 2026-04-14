@@ -11,7 +11,7 @@ as primary dynamical variables.
 
 ## Conceptual Role
 
-The modules in this directory implement the **intrinsic dynamics** of:
+The modules in this directory implement the intrinsic dynamics of:
 
 - Entropy (H)
 - Mutual Information (MI)
@@ -21,127 +21,90 @@ The modules in this directory implement the **intrinsic dynamics** of:
 These quantities evolve according to the information dynamic equations
 defined in `Core/`.
 
-This approach allows one to study:
-
-- the structure of information flow independent of specific models
-- the role of control parameters (α)
-- constrained dynamics such as blocked flows
-- stationary and self-consistent solutions
-
 ---
 
 ## Key Features
 
 ### 1. Direct Equation-Based Evolution
 
-The system evolves by iterating update equations:
-
 - No trajectory data is generated
 - No estimator is required
-- All variables are updated deterministically
-
-This provides a clean setting for analyzing the mathematical structure
-of the framework.
-
----
+- Deterministic updates of information variables
 
 ### 2. Control Parameters
 
-The α-parameters (α1–α6) can be specified explicitly or solved under constraints.
-
-Typical uses include:
-- fixing certain flows
-- enforcing conservation-like conditions
-- exploring parameter regimes
-
----
+- alpha1 – alpha6 control the dynamics
+- can be fixed or solved under constraints
 
 ### 3. Blocking Flow Conditions
 
-A central feature in these examples is the ability to impose:
-
-> selected transfer entropy flows vanish
-
-This is achieved by solving for α-parameters such that:
-
-    TE_{i→j}(t+1) = 0
-
-for chosen directed edges.
-
-This enables:
-- construction of constrained networks
-- study of circulation and flow suppression
-- analysis of compatibility conditions across nodes
+- selected TE and rTE flows can be forced to vanish
+- enables constrained circulation and consistency analysis
 
 ---
 
 ## Included Examples
 
 ### 001_A_Single_Cycle
-
 - Simple cyclic network
 - Demonstrates basic flow circulation
-- Useful for verifying consistency of update rules
+- Useful for verifying consistency
 
 ### 002_Cycle_and_Source
+- Cycle with an additional source node
+- Shows interaction between injection/multivariate effects (E) and flows
 
-- Combines cyclic structure with a source node
-- Illustrates interaction between local injection (E) and flow dynamics
-- Shows nontrivial behavior under mixed topology
+### 005_Oscillatory_Two_Cycles
+- Two coupled cyclic networks (A-cycle and B-cycle)
+- Inter-cycle links: A2 → B2 and B4 → A4
+- Dynamic feedback through node-level E terms
+- Oscillatory exchange between cycles via TE and rTE
+- Useful for studying:
+  - coupled circulation dynamics
+  - balance between TE and rTE across subsystems
+  - feedback-controlled information flow
 
 ---
 
 ## How to Run
 
-From the repository root:
-
 ```bash
 python -m on_Equations.001_A_Single_Cycle.main
-```
-
-or
-
-```bash
 python -m on_Equations.002_Cycle_and_Source.main
+python -m on_Equations.005_Oscillatory_Two_Cycles.main
 ```
 
 ---
 
 ## Output
 
-- Results are stored in corresponding subdirectories
-- Variables are recorded over time:
+- Time series of:
   - MI
   - TE
   - rTE
   - H
-  - α parameters
+  - alpha parameters
 
 ---
 
 ## When to Use This Module
 
-Use `on_Equations` when you want to:
-
-- study the **mathematical properties** of the framework
-- test theoretical predictions
-- analyze constrained dynamics without model-specific noise
-- explore parameter dependence systematically
+- Analyze intrinsic dynamics
+- Study constrained flows
+- Explore theoretical properties without noise
 
 ---
 
 ## Relation to on_Model
 
-- `on_Equations`: intrinsic, equation-driven dynamics
-- `on_Model`: data-driven estimation from simulated systems
-
-Together, they provide complementary validation of the framework.
+- on_Equations: intrinsic dynamics
+- on_Model: data-driven estimation
 
 ---
 
 ## Notes
 
-- Initial conditions must be specified carefully.
-- Stability and boundedness depend on chosen α parameters.
-- Blocking conditions may introduce nontrivial consistency constraints.
+- Initial conditions are critical
+- Stability depends on alpha parameters
+- Blocking constraints may introduce nontrivial coupling
 - 
