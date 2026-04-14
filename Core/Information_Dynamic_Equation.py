@@ -41,7 +41,7 @@ class Information_Dynamics(Model_Basics.Custom_FIFO):
 		self.Set_Overall_Alphas_and_E()
 		
 		for t in range(self.Simulation_Time_Limit):
-			self.Set_Realtime_Alphas_and_E()
+			self.Set_Realtime_Alphas_and_E(t)
 			self.Impose_Blocking_Flows_Condition(t)
 		
 			for ind_link in self.Info_Network.Links:
@@ -300,5 +300,5 @@ class Information_Dynamics(Model_Basics.Custom_FIFO):
 	def Set_Overall_Alphas_and_E(self):
 		raise NotImplementedError("Need to override this function")
 		
-	def Set_Realtime_Alphas_and_E(self):	
+	def Set_Realtime_Alphas_and_E(self,t):	
 		pass	
