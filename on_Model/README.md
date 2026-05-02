@@ -104,17 +104,17 @@ These parameters allow systematic exploration of competing information flows.
 ## How to Run
 
 From the repository root:
-
+```bash
 python -m on_Model.004_ABN_for_GRN.main
-
+```
 or:
-
+```bash
 python -m on_Model.005_Three_Nodes_GRN.main
-
+```
 or:
-
+```bash
 python -m on_Model.015_Boolean_Probability_Update.main
-
+```
 ---
 
 ## Output
@@ -134,13 +134,13 @@ Recorded quantities typically include:
 ## Plotting
 
 Use the utility script:
-
+```bash
 python -m on_Model.Utils.plot_results --dir <result_directory> --link <node1> <node2>
-
+```
 or:
-
+```bash
 python -m on_Model.Utils.plot_results --dir <result_directory> --node <node>
-
+```
 ---
 
 When to Use This Module
