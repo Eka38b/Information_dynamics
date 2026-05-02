@@ -8,9 +8,7 @@ This directory implements a discrete Boolean network in which an internal circul
 
 The main comparison produced by the script is
 
-\[
-T_{A4 \to p}(t_0) \quad \text{vs.} \quad T_{Ext \to p}(t_1),
-\]
+$T_{A4 \to p}(t_0) \quad \text{vs.} \quad T_{Ext \to p}(t_1)$,
 
 where the internal link `A4 -> p` is measured immediately before the external interaction begins, and the external link `Ext -> p` is measured immediately after that interaction is introduced.
 
