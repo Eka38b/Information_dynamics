@@ -88,14 +88,14 @@ class Boolean_Probability_Update(Model_Basics.Model_Basic):
 		for i in range(10):
 			X_Data.append([])
 			Y_Data.append([])
-		for j in range(9):
+		for j in range(10):
 			for i in range(10):
 				Directory = "./on_Model/015_Boolean_Probability_Update/Temporal_Results/Paper_%03d/Case%03d/Link_Ext_p.txt"%(j+1,i)
 				Data_Flow = self.Read_for_(Directory)
 				Y_Data[i].append(Data_Flow["TE2"][25])
 				Total_Y.append(Data_Flow["TE2"][25])
 				
-				Directory = "./on_Model/015_Boolean_Probability_Update/Temporal_Results/Paper_%03d/Case%03d/Link_A4_p.txt"%(j+1,i)
+				Directory = "./on_Model/015_Boolean_Probability_Update/Temporal_Results/Paper_%03d/Case%03d/Link_A%d_p.txt"%(j+1,i,self.N)
 				Data_Flow = self.Read_for_(Directory)
 				X_Data[i].append(Data_Flow["TE2"][24])
 				Total_X.append(Data_Flow["TE2"][24])
