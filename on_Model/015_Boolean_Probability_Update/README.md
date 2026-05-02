@@ -84,8 +84,7 @@ Selected_Nodes = ["p"]
 Selected_Links = [("A4", "p"), ("Ext", "p"), ("p", "A1")]
 ```
 
-For `N != 4`, the first selected link is automatically `("AN", "p")` in the class initialization, but the plotting routine is currently hard-coded for `A4 -> p`.
-
+For `N != 4`, the first selected link is automatically `("AN", "p")` in the class initialization.
 ## How to run
 
 From the repository root, run:
@@ -152,8 +151,6 @@ which correspond to the internal information flow just before the external inter
 ## Notes and cautions
 
 - The directory-creation lines using `os.mkdir(...)` are currently commented out in `main.py`. Create the output folders manually, or uncomment/add directory creation before running the full scan.
-- `Plot_Data()` currently reads `Paper_001` through `Paper_009`, although the simulation loop generates `Paper_001` through `Paper_010`. This can be adjusted if the tenth trial should be included in the plotted mean curve.
-- The plotting routine is specialized to the default case `N = 4`, because it reads `Link_A4_p.txt` explicitly.
 - The random seed is initialized using the current time, so repeated runs are not exactly reproducible unless a fixed seed is set.
 
 ## Purpose in the repository
