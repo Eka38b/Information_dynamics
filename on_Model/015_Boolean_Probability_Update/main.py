@@ -3,7 +3,7 @@ import time
 import random
 import numpy
 
-import os
+#import os
 import matplotlib.pyplot as plt
 
 from Core import Model_Basics
@@ -88,7 +88,7 @@ class Boolean_Probability_Update(Model_Basics.Model_Basic):
 		for i in range(10):
 			X_Data.append([])
 			Y_Data.append([])
-		for j in range(1):
+		for j in range(1): #the number of trials
 			for i in range(10):
 				Directory = "./Data/on_Model015/Paper_%03d/Case%03d/Link_Ext_p.txt"%(j+1,i)
 				Data_Flow = self.Read_for_(Directory)
@@ -121,13 +121,13 @@ class Boolean_Probability_Update(Model_Basics.Model_Basic):
 		plt.close()
 	
 if __name__ == "__main__":
-	for j in range(1):
-		os.mkdir("./Data/on_Model015/Paper_%03d/"%(j+1))
+	for j in range(1): #the number of trials
+		#os.mkdir("./Data/on_Model015/Paper_%03d/"%(j+1))
 		for i in range(10):
 			print("\n Trial %03d , Case %03d"%(j+1,i))
 			TEST = Boolean_Probability_Update(n = 4, beta_Int = 1+ 0.3 * i, beta_Ext = 10)
 			TEST.Save_Directory = "./Data/on_Model015/Paper_%03d/Case%03d/"%(j+1,i)
-			os.mkdir(TEST.Save_Directory)
+			#os.mkdir(TEST.Save_Directory)
 			TEST.Initialize()		
 			TEST.Generate_Data()
 	TEST = Boolean_Probability_Update()
