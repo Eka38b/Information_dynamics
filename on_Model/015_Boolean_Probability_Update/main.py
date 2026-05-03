@@ -74,9 +74,9 @@ class Boolean_Probability_Update(Model_Basics.Model_Basic):
 		self.Update_Buffer["Ext"] = numpy.random.binomial(1,0.5)
 				
 		if t < self.Start_of_Interaction:
-			w = numpy.exp(- self.beta_Int * self.State_Space["A%d"%self.N])			
+			w = numpy.exp(- self.beta_Int * self.State_Space["A%d"%self.N]+1)			
 		else:
-			w = numpy.exp(- self.beta_Int * self.State_Space["A%d"%self.N] - self.beta_Ext * self.State_Space["Ext"])
+			w = numpy.exp(- self.beta_Int * self.State_Space["A%d"%self.N] - self.beta_Ext * self.State_Space["Ext"]+1)
 		update_probability = 1/(1+w)	
 		self.Update_Buffer["p"] = numpy.random.binomial(1,update_probability)
 		
@@ -88,7 +88,7 @@ class Boolean_Probability_Update(Model_Basics.Model_Basic):
 		for i in range(10):
 			X_Data.append([])
 			Y_Data.append([])
-		for j in range(10):
+		for j in range(1):
 			for i in range(10):
 				Directory = "./on_Model/015_Boolean_Probability_Update/Temporal_Results/Paper_%03d/Case%03d/Link_Ext_p.txt"%(j+1,i)
 				Data_Flow = self.Read_for_(Directory)
@@ -121,11 +121,11 @@ class Boolean_Probability_Update(Model_Basics.Model_Basic):
 		plt.close()
 	
 if __name__ == "__main__":
-	for j in range(10):
+	for j in range(1):
 		#os.mkdir("./on_Model/015_Boolean_Probability_Update/Temporal_Results/Paper_%03d/"%(j+1))
 		for i in range(10):
 			print("\n Trial %03d , Case %03d"%(j+1,i))
-			TEST = Boolean_Probability_Update(n = 4, beta_Int = 1+ 0.2 * i, beta_Ext = 4)
+			TEST = Boolean_Probability_Update(n = 4, beta_Int = 1+ 0.3 * i, beta_Ext = 10)
 			TEST.Save_Directory = "./on_Model/015_Boolean_Probability_Update/Temporal_Results/Paper_%03d/Case%03d/"%(j+1,i)
 			#os.mkdir(TEST.Save_Directory)
 			TEST.Initialize()		
