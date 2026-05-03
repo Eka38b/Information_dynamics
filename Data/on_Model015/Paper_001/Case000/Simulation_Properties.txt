@@ -1,0 +1,11 @@
+Model_Name : Boolean_Probability_Update
+Estimator : Simple Binning
+Q : 2
+N : 4
+beta_Int : 1.0
+beta_Ext : 10
+Simulation_Time_Limit : 40
+Start_of_Interaction : 25
+Size_of_Ensemble : 10000
+Nodes : Ext|p|A1|A2|A3|A4|
+Links : A1,A2| A2,A3| A3,A4| A4,p| p,A1| Ext,p| 
