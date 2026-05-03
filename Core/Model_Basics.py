@@ -230,7 +230,7 @@ class Model_Basic(Custom_FIFO):
 			
 	def Post_Estimation_for_E(self):
 		if len(self.Selected_Links) != len(self.Info_Network.Links):
-				raise ValueError("ERROR : Fail to estimate E")	
+				print("Wanring : possible to be insufficient for estimating E")	
 		for ind_node in self.Selected_Nodes:
 			Save_File = open(self.Save_Directory+"Node_%s_E_values.txt"%ind_node,'w')
 			Save_File.write("E|\n")
