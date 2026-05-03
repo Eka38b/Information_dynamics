@@ -74,10 +74,10 @@ class Boolean_Probability_Update(Model_Basics.Model_Basic):
 		self.Update_Buffer["Ext"] = numpy.random.binomial(1,0.5)
 				
 		if t < self.Start_of_Interaction:
-			update_probability = numpy.exp(- self.beta_Int * self.State_Space["A%d"%self.N])			
+			w = numpy.exp(- self.beta_Int * self.State_Space["A%d"%self.N])			
 		else:
-			update_probability = numpy.exp(- self.beta_Int * self.State_Space["A%d"%self.N] - self.beta_Ext * self.State_Space["Ext"])
-			
+			w = numpy.exp(- self.beta_Int * self.State_Space["A%d"%self.N] - self.beta_Ext * self.State_Space["Ext"])
+		update_probability = 1/(1+w)	
 		self.Update_Buffer["p"] = numpy.random.binomial(1,update_probability)
 		
 	def Plot_Data(self):
