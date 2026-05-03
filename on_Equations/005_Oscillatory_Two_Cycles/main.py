@@ -120,7 +120,7 @@ if __name__ == "__main__":
     plt.xlabel("time"); plt.ylabel("TE, rTE")
     plt.title(f"Cycle-average paired feedback E: TE and rTE (kappa={TEST.kappa}, clip={TEST.clip_E})")
     plt.legend(); plt.tight_layout()
-    plt.show()
+    plt.savefig(TEST.Save_Directory+"TE_rTE.png")
     plt.close()
 
 
@@ -130,16 +130,15 @@ if __name__ == "__main__":
     plt.xlabel("time"); plt.ylabel("MI")
     plt.title(f"Cycle-average paired feedback E: MI (kappa={TEST.kappa}, clip={TEST.clip_E})")
     plt.legend(); plt.tight_layout()
-    plt.show()
+    plt.savefig(TEST.Save_Directory+"MI.png")
     plt.close()
     
     
     plt.figure(figsize=(9,5.5))
     plt.plot(A_df["time"], A_df["E"], label="E(B2)")
-    plt.plot(B_df["time"], B_df["MI"], label="Cycle B mean MI")
     plt.xlabel("time"); plt.ylabel("E")
     plt.title(f"Cycle-average paired feedback E: E (kappa={TEST.kappa}, clip={TEST.clip_E})")
     plt.legend(); plt.tight_layout()
-    plt.show()
+    plt.savefig(TEST.Save_Directory+"E.png")
     plt.close()
 

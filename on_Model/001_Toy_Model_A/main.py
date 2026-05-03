@@ -19,7 +19,7 @@ class Toy_Model_A(Model_Basics.Model_Basic):
 		self.Start_of_Interaction = 25
 		self.Size_of_Ensemble = 10000
 		
-		self.Save_Directory = "./on_Model/001_Toy_Model_A/Temporal_Results/"
+		self.Save_Directory = "./Data/on_Model001/"
 		
 		self.Selected_Nodes = ["A1","A%d"%self.N]
 		self.Selected_Links = []
@@ -71,4 +71,4 @@ class Toy_Model_A(Model_Basics.Model_Basic):
 		
 		
 if __name__ == "__main__":
-	TEST = Toy_Model_A(5, 0.5, 0.5, 0.2)
+	TEST = Toy_Model_A(5, 0.7, 0.5, 0.4)

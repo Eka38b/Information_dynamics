@@ -1,0 +1,8 @@
+Model_Name : Cycle_and_Source_on_Toy_Model_A
+Estimator : Simple Binning
+Q : 5
+N : 5
+Simulation_Time_Limit : 40
+Size_of_Ensemble : 10000
+Nodes : Ext|A1|A2|A3|A4|A5|
+Links : Ext,A1| A1,A2| A2,A3| A3,A4| A4,A5| A5,A1| 
