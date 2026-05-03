@@ -90,12 +90,12 @@ class Boolean_Probability_Update(Model_Basics.Model_Basic):
 			Y_Data.append([])
 		for j in range(1): #the number of trials
 			for i in range(10):
-				Directory = "./Data/on_Model015/Paper_%03d/Case%03d/Link_Ext_p.txt"%(j+1,i)
+				Directory = "./on_Model/015_Boolean_Probability_Update/Temporal_Results/Paper_%03d/Case%03d/Link_Ext_p.txt"%(j+1,i)
 				Data_Flow = self.Read_for_(Directory)
 				Y_Data[i].append(Data_Flow["TE2"][25])
 				Total_Y.append(Data_Flow["TE2"][25])
 				
-				Directory = "./Data/on_Model015/Paper_%03d/Case%03d/Link_A%d_p.txt"%(j+1,i,self.N)
+				Directory = "./on_Model/015_Boolean_Probability_Update/Temporal_Results/Paper_%03d/Case%03d/Link_A%d_p.txt"%(j+1,i,self.N)
 				Data_Flow = self.Read_for_(Directory)
 				X_Data[i].append(Data_Flow["TE2"][24])
 				Total_X.append(Data_Flow["TE2"][24])
@@ -117,16 +117,16 @@ class Boolean_Probability_Update(Model_Basics.Model_Basic):
 		plt.title("Competing Information Flows : "+r'$T_{A4 \to p} (t_{0})$ vs $T_{Ext \to p} (t_{1})$')
 		plt.legend()
 		plt.tight_layout()
-		plt.savefig("./Data/on_Model015/Figure3.png")
+		plt.savefig("./on_Model/015_Boolean_Probability_Update/Temporal_Results/Figure3.png")
 		plt.close()
 	
 if __name__ == "__main__":
 	for j in range(1): #the number of trials
-		#os.mkdir("./Data/on_Model015/Paper_%03d/"%(j+1))
+		#os.mkdir("./on_Model/015_Boolean_Probability_Update/Temporal_Results/Paper_%03d/"%(j+1))
 		for i in range(10):
 			print("\n Trial %03d , Case %03d"%(j+1,i))
 			TEST = Boolean_Probability_Update(n = 4, beta_Int = 1+ 0.3 * i, beta_Ext = 10)
-			TEST.Save_Directory = "./Data/on_Model015/Paper_%03d/Case%03d/"%(j+1,i)
+			TEST.Save_Directory = "./on_Model/015_Boolean_Probability_Update/Temporal_Results/Paper_%03d/Case%03d/"%(j+1,i)
 			#os.mkdir(TEST.Save_Directory)
 			TEST.Initialize()		
 			TEST.Generate_Data()
