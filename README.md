@@ -8,8 +8,8 @@
 ## Overview
 This repository provides the dataset and executable scripts required to reproduce all key results and figures in the manuscript. The framework consists of two complementary approaches:
 
-- **on_Model/**: Data-driven simulations (stochastic update rules)
-- **on_Equations/**: Direct evolution of information-theoretic variables
+- 'on_Model/': Data-driven simulations (stochastic update rules)
+- 'on_Equations/': Direct evolution of information-theoretic variables
 
 ---
 ## Core Mechanism
