@@ -107,7 +107,7 @@ Temporal_Results/
 ├── *_E_values.txt
 ├── *_MI.txt
 ├── *_TE.txt
-└── Figure.png
+└── *.png
 ```
 
 ---
