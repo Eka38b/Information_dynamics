@@ -12,7 +12,17 @@ This repository provides the dataset and executable scripts required to reproduc
 - **on_Equations/**: Direct evolution of information-theoretic variables
 
 ---
+## Core Mechanism
 
+The repository implements a dynamical framework in which information-theoretic quantities—entropy (H), mutual information (MI), transfer entropy (TE), and reversed transfer entropy (rTE)—are treated as state variables that evolve in discrete time.  
+
+Two complementary realizations are provided:
+- In `on_Model/`, these quantities are estimated from stochastic simulations of underlying state variables.
+- In `on_Equations/`, they evolve directly through closed dynamical equations with specified initial conditions.
+
+Information circulation in network structures (e.g., cycles and interacting loops) is governed by these dynamics under entropy constraints, leading to characteristic behaviors such as stationary states, bounded oscillations, and transient responses to external inputs.
+
+---
 ## Prerequisites
 
 - Python ≥ 3.9
