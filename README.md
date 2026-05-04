@@ -45,7 +45,7 @@ The `./Data/` directory contains the simulation outputs generated for this study
 
 ## Reproducibility
 
-All results in `./Data/` directory can be reproduced by running the following commands.
+The results in the `./Data/` directory are reproducible using the following commands.
 
 ---
 
