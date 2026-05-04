@@ -97,14 +97,7 @@ or equivalently:
 python on_Model/015_Boolean_Probability_Update/main.py
 ```
 
-The script runs 10 trials and 10 parameter cases. In case `i`, it sets
-
-```python
-beta_Int = 1 + 0.2 * i
-beta_Ext = 4
-```
-
-After the simulations, it calls `Plot_Data()` to plot the relationship between the pre-interaction internal transfer entropy and the post-interaction external transfer entropy.
+---
 
 ## Outputs
 
