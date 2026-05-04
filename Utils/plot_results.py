@@ -254,7 +254,7 @@ def Several_Region(args):
             keys = r'$H_{'+node+'}$'
             ys[keys] = series[keys]
         title = f"Figure 3 : {model_name} | Node {args.node}"
-        plot_multi_series(t, ys, title=title, ylabel="value (nats)", save="Figure_H.png", show=args.show)
+        plot_multi_series(t, ys, title=title, ylabel="value (nats)", save=os.path.join(args.dir, "Figure_H.png"), show=args.show)
 
     if args.links:
         links = args.links
@@ -269,7 +269,7 @@ def Several_Region(args):
 
             ys[keys] = series[keys]
         title = f"Figure : {model_name} | {args.keys[0]}"
-        plot_multi_series(t, ys, title=title, ylabel="value (nats)", save="Figure_"+args.keys[0]+".png", show=args.show)
+        plot_multi_series(t, ys, title=title, ylabel="value (nats)", save=os.path.join(args.dir,"Figure_"+args.keys[0]+".png"), show=args.show)
         
 if __name__ == "__main__":
     main()
