@@ -62,21 +62,7 @@ python -m Utils.plot_results \
 
 ---
 
-## Options
 
-- `--paper`  
-  Format plots for publication (clean layout, adjusted fonts, etc.)
-
-- `--dir`  
-  Path to the directory containing saved results
-
-- `--link`  
-  Specify two nodes defining a link
-
-- `--node`  
-  Specify a single node
-
----
 
 ## Output
 
