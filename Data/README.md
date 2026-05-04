@@ -64,10 +64,15 @@ It can be ignored when reproducing the results of this work.
 Within each dataset directory:
 
 Temporal_Results/
+
 ├── *_E_values.txt   # Control or interaction terms (E)
+
 ├── *_MI.txt         # Mutual information time series
+
 ├── *_TE.txt         # Transfer entropy time series
+
 ├── *_rTE.txt        # Reversed transfer entropy (if available)
+
 └── Figure.png       # Generated figure (if applicable)
 
 ---
