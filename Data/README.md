@@ -77,9 +77,13 @@ Temporal_Results/
 Each dataset can be regenerated using the corresponding script:
 
 Dataset| Script
+
 on_Model015| "python3 -m on_Model.015_Boolean_Probability_Update.main"
+
 on_Equations005| "python3 -m on_Equations.005_Oscillatory_Two_Cycles.main"
+
 on_Equations001| "python3 -m on_Equations.001_A_Single_Cycle.main"
+
 on_Model001| "python3 -m on_Model.001_Toy_Model_A.main"
 
 ---
