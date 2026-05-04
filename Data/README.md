@@ -28,6 +28,9 @@ Data/
 
 Each subdirectory corresponds to a specific simulation setup.
 
+Directory names such as `on_Model001/` correspond to the full paths 
+(e.g., `on_Model/001_Toy_Model_A/`) used in the source code.
+
 ---
 
 ## Data Used in This Manuscript
@@ -59,7 +62,7 @@ It can be ignored when reproducing the results of this work.
 
 ---
 
-## Reproducing the Data
+## Reproducibility
 
 Each dataset can be regenerated using the corresponding scripts and commands listed in the root README under “Reproducibility Instructions”.
 
