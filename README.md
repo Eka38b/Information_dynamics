@@ -1,6 +1,6 @@
 # Information Dynamics
 
-https://doi.org/10.5281/zenodo.20024405
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20024405.svg)]([https://doi.org/10.5281/zenodo.20024405])
 
 `Information_dynamics` is a Python repository for studying information-theoretic dynamics on networks. It provides two complementary ways to analyze evolving information flow:
 
