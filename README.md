@@ -19,6 +19,12 @@ python3 -m on_Model.015_Boolean_Probability_Update.main
 
 This is the primary reproduction command for the Boolean probability-update model used for **Figure 3**.
 
+Simulation outputs are written under
+
+```text
+on_Model/015_Boolean_Probability_Update/Temporal_Results/
+```
+
 The calculation evaluates the relation between:
 
 - the pre-existing circulating transfer entropy, \(T_{A_4\to P}(t_0)\), and
