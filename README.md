@@ -1,4 +1,4 @@
-# Information Dynamics — Dataset v0.1.3
+# Information Dynamics — Dataset v0.1.4
 
 ## Manuscript
 **Robustness of Information Circulation under Entropy Constraints**
