@@ -72,7 +72,7 @@ class Fredkin_Switch_Gate(Model_Basics.Model_Basic):
 			self.Update_Buffer["A%d"%(i+2)] = self.State_Space["A%d"%(i+1)]
 			
 		self.Update_Buffer["A1"] = self.State_Space["p"]
-		self.Update_Buffer["Ext"] = numpy.random.randint(0,self.Q)
+		self.Update_Buffer["Ext"] = self.State_Space["Ext"]
 				
 		if t < self.Start_of_Interaction:
 			self.Update_Buffer["p"] = self.State_Space["A%d"%self.N]
@@ -117,9 +117,9 @@ class Fredkin_Switch_Gate(Model_Basics.Model_Basic):
 		plt.figure(figsize=(9,4))
 		plt.plot(Total_X, Total_Y, label="Estimations",marker='o', markersize = 4, markerfacecolor = 'none', linewidth = 0)
 		plt.plot(X_Mean_data, Y_Mean_data, label="Mean Curve",marker='o', markersize = 4, markerfacecolor = 'none', linewidth = 1)
-		plt.xlabel(r'$T_{A4 \to p} (t_{0})$')
+		plt.xlabel(r'$T_{A3 \to p} (t_{0})$')
 		plt.ylabel(r'$T_{Ext \to p} (t_{1})$')
-		plt.title("Competing Information Flows : "+r'$T_{A4 \to p} (t_{0})$ vs $T_{Ext \to p} (t_{1})$')
+		plt.title("Competing Information Flows : "+r'$T_{A3 \to p} (t_{0})$ vs $T_{Ext \to p} (t_{1})$')
 		plt.legend()
 		plt.tight_layout()
 		plt.savefig("./on_Model/019_Fredkin_Switch_Gate/Temporal_Results/Figure3.png")
