@@ -152,7 +152,7 @@ fair,
 
 $$
 \frac12p_x+\frac12p_{-x}
-=\operatorname{Uniform}(\{00,01,10,11\}).
+=\mathrm{Uniform}(\{00,01,10,11\}).
 $$
 
 It follows that
