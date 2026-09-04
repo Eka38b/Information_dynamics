@@ -62,6 +62,7 @@ class Fredkin_Switch_Gate(Model_Basics.Model_Basic):
 		for k in self.Info_Network.Nodes:
 			s = numpy.random.random()
 			self.State_Space[k] = numpy.searchsorted(self.Cumulative_Mass,s, side='right')
+		self.State_Space["Ext"] = numpy.random.randint(0, self.Q)
 			
 	def Set_Estimator(self):
 		self.Estimator = Simple_Binning.Estimator(self.Q, 4)
