@@ -1,4 +1,3 @@
-
 import time
 import random
 import numpy
@@ -111,21 +110,25 @@ class Fredkin_Switch_Gate(Model_Basics.Model_Basic):
 			X_Exact.append(numpy.mean(X_Data[i]))
 			Y_Exact.append(numpy.log(4)-numpy.mean(X_Data[i]))
 		
-		plt.figure(figsize=(9,4))
-		plt.plot(Total_X, Total_Y, label="Estimations",marker='o', markersize = 4, markerfacecolor = 'none', linewidth = 0)
-		plt.plot(X_Exact, Y_Exact, label="x + y = ln(4)",marker='o', markersize = 4, markerfacecolor = 'none', linewidth = 1)
-		plt.xlabel(r'$T_{A3 \to p} (t_{0})$(nats)')
-		plt.ylabel(r'$T_{Ext \to p} (t_{1})$(nats)')
-		plt.title("Competing Information Flows : "+r'$T_{A3 \to p} (t_{0})$ vs $T_{Ext \to p} (t_{1})$')
-		plt.legend()
+		plt.figure(figsize=(6.5,4.8))
+		plt.plot(Total_X, Total_Y, label="Simulation estimates", marker='o',
+			markersize=4, markerfacecolor='none', linewidth=0)
+		plt.plot(X_Exact, Y_Exact,
+			label=r'$T_{A_3\to p}(t_0)+T_{\mathrm{Ext}\to p}(t_1)=\ln 4$',
+			marker='o', markersize=4, markerfacecolor='none', linewidth=1.5)
+		plt.xlabel(r'$T_{A_3\to p}(t_0)$ [nats]')
+		plt.ylabel(r'$T_{\mathrm{Ext}\to p}(t_1)$ [nats]')
+		plt.title("Boundary transfer relation at switching onset")
+		plt.grid(color='0.9', linewidth=0.7)
+		plt.legend(frameon=False)
 		plt.tight_layout()
-		plt.savefig(self.Save_Directory+"Figure3_a.png")
+		plt.savefig(self.Save_Directory+"Figure3_a.png", dpi=300)
 		plt.close()
 
 	def Plot_Data2(self, N_Trials):
 		Internal_Data = []
 		External_Data = []
-		i = 5
+		i = 3
 		for j in range(N_Trials): #the number of trials
 			Directory = self.Save_Directory + "Paper_%03d/Case%03d/Link_Ext_p.txt"%(j+1,i)
 			Data_Flow = self.Read_for_(Directory)
@@ -137,25 +140,41 @@ class Fredkin_Switch_Gate(Model_Basics.Model_Basic):
 			
 		Internal_Data = numpy.asarray(Internal_Data, dtype=float)
 		External_Data = numpy.asarray(External_Data, dtype=float)
-		Internal_Mean = numpy.mean(Internal_Data, axis=1)
-		External_Mean = numpy.mean(External_Data, axis=1)
+		Internal_Mean = numpy.mean(Internal_Data, axis=0)
+		External_Mean = numpy.mean(External_Data, axis=0)
+		Internal_Std = numpy.std(Internal_Data, axis=0)
+		External_Std = numpy.std(External_Data, axis=0)
 		time_st = 20
 		time_ed = 35
 		timeline = list(range(time_st,time_ed))
-		plt.figure(figsize=(9,4))
-		for j in range(N_Trials):
-			plt.plot(timeline, Internal_Data[j][time_st:time_ed], label="Estimation"+r'$T_{A3 \to p} (t)$',marker='o', markersize = 4, markerfacecolor = '#2166ac', linewidth = 0)
-			plt.plot(timeline, External_Data[j][time_st:time_ed], label="Estimation"+r'$T_{Ext \to p} (t)$',marker='o', markersize = 4, markerfacecolor = '#d95f02', linewidth = 0)
-		plt.plot(timeline, Internal_Mean[time_st:time_ed], label="mean curve"+r'$T_{A3 \to p} (t)$',marker='o', markersize = 4, markerfacecolor = '#2188dd', linewidth = 1)
-		plt.plot(timeline, External_Mean[time_st:time_ed], label="mean curve"+r'$T_{Ext \to p} (t)$',marker='o', markersize = 4, markerfacecolor = '#fb9f02', linewidth = 1)
-		plt.xlabel(r'Time steps')
-		plt.ylabel(r'Transfer Entropy (nats)')
-		plt.title("Evolution of Information Flows : Time"+r'$ t vs T_{A3 \to p} (t)$, $T_{Ext \to p} (t)$')
-		plt.legend()
+		plt.figure(figsize=(7.2,4.2))
+		plt.plot(timeline, Internal_Mean[time_st:time_ed],
+			label=r'$T_{A_3 \to p}(t)$', color='#2166ac', linewidth=2)
+		plt.fill_between(timeline,
+			Internal_Mean[time_st:time_ed]-Internal_Std[time_st:time_ed],
+			Internal_Mean[time_st:time_ed]+Internal_Std[time_st:time_ed],
+			color='#2166ac', alpha=0.15, linewidth=0)
+		plt.plot(timeline, External_Mean[time_st:time_ed],
+			label=r'$T_{\mathrm{Ext} \to p}(t)$', color='#d95f02', linewidth=2)
+		plt.fill_between(timeline,
+			External_Mean[time_st:time_ed]-External_Std[time_st:time_ed],
+			External_Mean[time_st:time_ed]+External_Std[time_st:time_ed],
+			color='#d95f02', alpha=0.15, linewidth=0)
+		plt.xlabel(r'Transition time $t$')
+		plt.ylabel(r'Transfer entropy [nats]')
+		plt.title(r'Evolution of information flows at $x=0.18$')
+		plt.axvspan(self.Start_of_Interaction-0.5,
+			self.Start_of_Interaction+self.N+0.5,
+			color='0.5', alpha=0.08, linewidth=0)
+		plt.axvline(self.Start_of_Interaction, color='0.35',
+			linestyle=':', linewidth=1)
+		plt.grid(axis='y', color='0.88', linewidth=0.7)
+		plt.legend(frameon=False)
 		plt.tight_layout()
-		plt.savefig(self.Save_Directory+"Figure3_b.png")
+		plt.savefig(self.Save_Directory+"Figure3_b.png", dpi=300)
 		plt.close()
 				
+
 if __name__ == "__main__":
 	N_Trials = 5
 	N_Param = 10
