@@ -9,8 +9,8 @@ authors:
 
 repository-code: "https://github.com/Eka38b/Information_dynamics"
 
-version: "0.1.4"
-date-released: 2026-09-05
+version: "0.1.4b"
+date-released: 2026-09-06
 
 abstract: >
   A framework for formulating and simulating dynamical equations of
