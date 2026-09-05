@@ -1,38 +1,50 @@
-# Information Dynamics — Dataset v0.1.3c
+# Information Dynamics — Dataset v0.1.4
 
 ## Manuscript
 **Robustness of Information Circulation under Entropy Constraints**
 
 This repository contains the datasets and executable scripts used to reproduce the principal numerical results of the manuscript. It includes both stochastic state-space simulations and direct evolution of information-theoretic variables.
 
+In v0.1.4, the finite-state reversible model in `on_Model/019_Fredkin_Switch_Gate/` replaces Model 015 as the source of Figure 3. Model 015 and its archived outputs are retained as an earlier numerical example.
+
 ---
 
 # Reproduce Figure 3
 
-**Figure 3 is the main manuscript figure demonstrating competition between internal information circulation and an external input at the merging node \(P\).**
+**Figure 3 demonstrates competition between internal information circulation and an external input at the merging node $p$ in a finite-state reversible Fredkin switch-gate model.**
 
 Run the following command **from the repository root**:
 
 ```bash
-python3 -m on_Model.015_Boolean_Probability_Update.main
+python3 -m on_Model.019_Fredkin_Switch_Gate.main
 ```
 
-This is the primary reproduction command for the Boolean probability-update model used for **Figure 3**.
-
-Simulation outputs are written under
+This is the primary reproduction command for **Figure 3**. The released data and figure are archived under
 
 ```text
-on_Model/015_Boolean_Probability_Update/Temporal_Results/
+Data/on_Model019/
+```
+
+New simulation outputs are written under
+
+```text
+on_Model/019_Fredkin_Switch_Gate/Temporal_Results/
 ```
 
 The calculation evaluates the relation between:
 
-- the pre-existing circulating transfer entropy, \(T_{A_4\to P}(t_0)\), and
-- the newly arriving external transfer entropy, \(T_{\mathrm{Ext}\to P}(t_1)\),
+- the pre-existing circulating transfer entropy, $T_{A_3\to p}(t_0)$, and
+- the newly arriving external transfer entropy, $T_{\mathrm{Ext}\to p}(t_1)$,
 
-after the external source begins interacting with the merging node \(P\).
+after the external source begins interacting with the merging node $p$.
 
-The reproduced result should show that increasing the internal circulating flow suppresses the external incoming flow, consistent with the finite-entropy-capacity mechanism discussed in the manuscript.
+The model realizes the capacity relation
+
+$$
+T_{A_3\to p}(t_0)+T_{\mathrm{Ext}\to p}(t_1)=\ln 4,
+$$
+
+up to finite-sample estimation error. Thus, increasing the pre-existing circulating flow suppresses the newly arriving external flow.
 
 > **For verification of Figure 3, start with the command above.** The remaining commands in this README reproduce supporting numerical examples used elsewhere in the study.
 
@@ -60,14 +72,12 @@ In `on_Equations/`, they are evolved directly from the information-dynamical equ
 ## Prerequisites
 
 - Python >= 3.9
-- `numpy`
-- `scipy`
-- `matplotlib`
+- packages listed in `requirements.txt`
 
 Install the required packages with:
 
 ```bash
-pip install numpy scipy matplotlib
+python3 -m pip install -r requirements.txt
 ```
 
 All commands below should be executed from the **repository root directory**.
@@ -76,7 +86,7 @@ All commands below should be executed from the **repository root directory**.
 
 ## Data Description
 
-The `./Data/` directory contains numerical outputs generated for this study, including results used in the manuscript figures.
+The `./Data/` directory contains numerical outputs generated for this study, including results used in the manuscript figures. In particular, `Data/on_Model019/` contains the five-trial, ten-parameter dataset and `Figure3.png` generated with the Fredkin switch-gate model.
 
 Where pre-generated data are included, they can be inspected directly without rerunning the corresponding simulation. Rerunning the scripts provides an independent reproduction of the numerical calculations.
 
@@ -84,33 +94,37 @@ Where pre-generated data are included, they can be inspected directly without re
 
 # Reproducibility
 
-## 1. Figure 3 — Boolean probability-update model
+## 1. Figure 3 — Fredkin switch-gate model
 
 ```bash
-python3 -m on_Model.015_Boolean_Probability_Update.main
+python3 -m on_Model.019_Fredkin_Switch_Gate.main
 ```
 
 **Purpose**
 
-This simulation reproduces the manuscript's Figure 3, where the cycle
+This simulation reproduces the manuscript's Figure 3, where the isolated cycle
 
 ```text
-P → A1 → A2 → A3 → A4 → P
+p → A1 → A2 → A3 → p
 ```
 
-is initially isolated and the merging node `P` subsequently begins to interact with an external source `Ext`.
+is initially stationary. At the specified interaction time, the first bit of the external node `Ext` controls whether the two bits of `A3` are exchanged before being written to the merging node `p`. The resulting complete state update is bijective.
 
 **Quantity of interest**
 
 ```text
-T_{A4→P}(t0)  versus  T_{Ext→P}(t1)
+T_{A3→p}(t0)  versus  T_{Ext→p}(t1)
 ```
 
 **Expected qualitative result**
 
-Increasing the pre-existing internal transfer entropy \(T_{A_4\to P}(t_0)\) suppresses the subsequent external transfer entropy \(T_{\mathrm{Ext}\to P}(t_1)\).
+The numerical estimates follow a decreasing relation close to
 
-This is the numerical realization of the competing-information-flow mechanism discussed in the manuscript.
+```text
+T_{A3→p}(t0) + T_{Ext→p}(t1) = ln(4).
+```
+
+This is the reversible numerical realization of the finite-entropy-capacity mechanism discussed in the manuscript. For the analytical construction, parameterization, and numerical details, see `on_Model/019_Fredkin_Switch_Gate/README.md`.
 
 ---
 
@@ -191,10 +205,10 @@ For manuscript Figure 3:
 4. Run:
 
    ```bash
-   python3 -m on_Model.015_Boolean_Probability_Update.main
+   python3 -m on_Model.019_Fredkin_Switch_Gate.main
    ```
 
-5. Inspect the generated output for the relation between \(T_{A_4\to P}(t_0)\) and \(T_{\mathrm{Ext}\to P}(t_1)\).
+5. Inspect `on_Model/019_Fredkin_Switch_Gate/Temporal_Results/Figure3.png` for the relation between $T_{A_3\to p}(t_0)$ and $T_{\mathrm{Ext}\to p}(t_1)$. The released reference output is `Data/on_Model019/Figure3.png`.
 
 ---
 
