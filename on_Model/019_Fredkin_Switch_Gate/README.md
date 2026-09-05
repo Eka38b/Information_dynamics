@@ -251,7 +251,7 @@ $$
 Place the script at
 
 ```text
-python3 -m on_Model.019_Fredkin_Switch_Gate.main
+on_Model/019_Fredkin_Switch_Gate/main.py
 ```
 
 inside the `Information_dynamics` repository. Install the repository
