@@ -152,11 +152,11 @@ Recorded quantities typically include:
 
 Use the utility script:
 ```bash
-python -m on_Model.Utils.plot_results --dir <result_directory> --link <node1> <node2>
+python3 -m Utils.plot_results --dir <result_directory> --link <node1> <node2>
 ```
 or:
 ```bash
-python -m on_Model.Utils.plot_results --dir <result_directory> --node <node>
+python3 -m Utils.plot_results --dir <result_directory> --node <node>
 ```
 ---
 
