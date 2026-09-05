@@ -25,7 +25,7 @@ class Fredkin_Switch_Gate(Model_Basics.Model_Basic):
 		self.Size_of_Ensemble = 10000
 		
 		
-		self.Save_Directory = "./on_Model/019_Fredkin_Switch_Gate/Temporal_Results/"
+		self.Save_Directory = "./Data/on_Model019/"
 		
 		self.Selected_Nodes = ["p"]
 		self.Selected_Links = [("A%d"%self.N,"p"), ("Ext","p"),("p","A1")]
@@ -179,11 +179,11 @@ if __name__ == "__main__":
 	N_Trials = 5
 	N_Param = 10
 	for j in range(N_Trials): #the number of trials
-		os.makedirs("./on_Model/019_Fredkin_Switch_Gate/Temporal_Results/Paper_%03d/"%(j+1), exist_ok=True)
+		os.makedirs("./Data/on_Model019/Paper_%03d/"%(j+1), exist_ok=True)
 		for i in range(N_Param):
 			print("\n Trial %03d , Case %03d"%(j+1,i))
 			TEST = Fredkin_Switch_Gate(n = 3, theta = 0.24 - 0.02 * i)
-			TEST.Save_Directory = "./on_Model/019_Fredkin_Switch_Gate/Temporal_Results/Paper_%03d/Case%03d/"%(j+1,i)
+			TEST.Save_Directory = "./Data/on_Model019/Paper_%03d/Case%03d/"%(j+1,i)
 			try:
 				os.mkdir(TEST.Save_Directory)
 				TEST.Initialize()		
