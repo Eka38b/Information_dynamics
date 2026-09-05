@@ -73,7 +73,7 @@ class Fredkin_Switch_Gate(Model_Basics.Model_Basic):
 			self.Update_Buffer["A%d"%(i+2)] = self.State_Space["A%d"%(i+1)]
 			
 		self.Update_Buffer["A1"] = self.State_Space["p"]
-		self.Update_Buffer["Ext"] = self.State_Space["Ext"]
+		self.Update_Buffer["Ext"] = numpy.random.randint(0, self.Q)
 				
 		if t < self.Start_of_Interaction:
 			self.Update_Buffer["p"] = self.State_Space["A%d"%self.N]
@@ -105,27 +105,40 @@ class Fredkin_Switch_Gate(Model_Basics.Model_Basic):
 				Data_Flow = self.Read_for_(Directory)
 				X_Data[i].append(Data_Flow["TE2"][24])
 				Total_X.append(Data_Flow["TE2"][24])
-		X_Mean_data = []
-		X_Std_data = []
-		Y_Mean_data = []
-		Y_Std_data = []
+		X_Exact = []
+		Y_Exact = []
 		for i in range(N_Param):
-			X_Mean_data.append(numpy.mean(X_Data[i]))
-			X_Std_data.append(numpy.std(X_Data[i]))
-			Y_Mean_data.append(numpy.mean(Y_Data[i]))
-			Y_Std_data.append(numpy.std(Y_Data[i]))
+			X_Exact.append(numpy.mean(X_Data[i]))
+			Y_Exact.append(numpy.log(4)-numpy.mean(X_Data[i]))
 		
 		plt.figure(figsize=(9,4))
 		plt.plot(Total_X, Total_Y, label="Estimations",marker='o', markersize = 4, markerfacecolor = 'none', linewidth = 0)
-		plt.plot(X_Mean_data, Y_Mean_data, label="Mean Curve",marker='o', markersize = 4, markerfacecolor = 'none', linewidth = 1)
-		plt.xlabel(r'$T_{A3 \to p} (t_{0})$')
-		plt.ylabel(r'$T_{Ext \to p} (t_{1})$')
+		plt.plot(X_Exact, Y_Exact, label="x + y = ln(4)",marker='o', markersize = 4, markerfacecolor = 'none', linewidth = 1)
+		plt.xlabel(r'$T_{A3 \to p} (t_{0})$(nats)')
+		plt.ylabel(r'$T_{Ext \to p} (t_{1})$(nats)')
 		plt.title("Competing Information Flows : "+r'$T_{A3 \to p} (t_{0})$ vs $T_{Ext \to p} (t_{1})$')
 		plt.legend()
 		plt.tight_layout()
-		plt.savefig(self.Save_Directory+"Figure3.png")
+		plt.savefig(self.Save_Directory+"Figure3_a.png")
 		plt.close()
-	
+
+	def Plot_Data2(self, N_Trials):
+		Total_X = []
+		Total_Y = []
+		X_Data = []
+		Y_Data = []
+		for j in range(N_Trials): #the number of trials
+			for i in range(N_Param):
+				Directory = self.Save_Directory + "Paper_%03d/Case%03d/Link_Ext_p.txt"%(j+1,i)
+				Data_Flow = self.Read_for_(Directory)
+				Y_Data[i].append(Data_Flow["TE2"][25])
+				Total_Y.append(Data_Flow["TE2"][25])
+				
+				Directory = self.Save_Directory + "Paper_%03d/Case%03d/Link_A%d_p.txt"%(j+1,i,self.N)
+				Data_Flow = self.Read_for_(Directory)
+				X_Data[i].append(Data_Flow["TE2"][24])
+				Total_X.append(Data_Flow["TE2"][24])
+				
 if __name__ == "__main__":
 	N_Trials = 5
 	N_Param = 10
