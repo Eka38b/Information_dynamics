@@ -206,7 +206,7 @@ analytically rather than inferred from the numerical trend. In particular,
 the deterministic delay and Fredkin updates give
 
 $$
-\alpha_{1,\mathrm{pre}}=\alpha_{1,\mathrm{post}}=0,
+\alpha_{1}^{\{A, Q\}\to P}=\alpha_{1}^{\{A', B', Q'\}\to P'}=0,
 $$
 
 while
