@@ -251,7 +251,7 @@ $$
 Place the script at
 
 ```text
-on_Model/019_Fredkin_Switch_Gate/main.py
+python3 -m on_Model.019_Fredkin_Switch_Gate.main
 ```
 
 inside the `Information_dynamics` repository. Install the repository
@@ -277,7 +277,7 @@ Run from the repository root so that the `Core` imports and relative output
 paths resolve correctly:
 
 ```bash
-python on_Model/019_Fredkin_Switch_Gate/main.py
+python3 -m on_Model.019_Fredkin_Switch_Gate.main
 ```
 
 The complete default scan can be computationally intensive because a separate
