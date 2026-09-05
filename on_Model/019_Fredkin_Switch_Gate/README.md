@@ -102,8 +102,7 @@ $$
 A_1(t+1)&=p(t),\\
 A_2(t+1)&=A_1(t),\\
 A_3(t+1)&=A_2(t),\\
-p(t+1)&=A_3(t),\\
-\mathrm{Ext}(t+1)&=\mathrm{Ext}(t).
+p(t+1)&=A_3(t).\\
 \end{aligned}
 $$
 
