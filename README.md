@@ -1,11 +1,11 @@
-# Information Dynamics — Dataset v0.1.4
+# Information Dynamics — Dataset v0.1.4b
 
 ## Manuscript
 **Robustness of Information Circulation under Entropy Constraints**
 
 This repository contains the datasets and executable scripts used to reproduce the principal numerical results of the manuscript. It includes both stochastic state-space simulations and direct evolution of information-theoretic variables.
 
-In v0.1.4, the finite-state reversible model in `on_Model/019_Fredkin_Switch_Gate/` replaces Model 015 as the source of Figure 3. Model 015 and its archived outputs are retained as an earlier numerical example.
+In v0.1.4b, the finite-state reversible model in `on_Model/019_Fredkin_Switch_Gate/` replaces Model 015 as the source of Figure 3. Model 015 and its archived outputs are retained as an earlier numerical example.
 
 ---
 
@@ -208,7 +208,7 @@ For manuscript Figure 3:
    python3 -m on_Model.019_Fredkin_Switch_Gate.main
    ```
 
-5. Inspect `on_Model/019_Fredkin_Switch_Gate/Temporal_Results/Figure3.png` for the relation between $T_{A_3\to p}(t_0)$ and $T_{\mathrm{Ext}\to p}(t_1)$. The released reference output is `Data/on_Model019/Figure3.png`.
+5. Inspect `on_Model/019_Fredkin_Switch_Gate/Temporal_Results/Figure3.png` for the relation between $T_{A_3\to p}(t_0)$ and $T_{\mathrm{Ext}\to p}(t_1)$. The released reference output is `Data/on_Model019/Figure3_a.png` and `Data/on_Model019/Figure3_b.png`.
 
 ---
 
