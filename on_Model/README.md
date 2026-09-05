@@ -98,6 +98,17 @@ These parameters allow systematic exploration of competing information flows.
 - Competition between internal and external information inputs
 - External signal activates after a specified time
 - Designed to analyze trade-offs between $T_{A \to p}$ and $T_{\mathrm{Ext} \to p}$
+- Retained as an earlier numerical example; replaced by Model 019 as the source of Figure 3 in Dataset v0.1.4
+
+---
+
+### 019_Fredkin_Switch_Gate
+
+- Finite-state reversible model with four-state, two-bit nodes
+- Stationary isolated cycle `p → A1 → A2 → A3 → p`
+- Fredkin controlled-swap interaction activated by the first bit of `Ext`
+- Current model for Figure 3 of *Robustness of Information Circulation under Entropy Constraints*
+- Numerically realizes $T_{A_3\to p}(t_0)+T_{\mathrm{Ext}\to p}(t_1)=\ln 4$ up to finite-sample estimation error
 
 ---
 
@@ -105,15 +116,19 @@ These parameters allow systematic exploration of competing information flows.
 
 From the repository root:
 ```bash
-python -m on_Model.004_ABN_for_GRN.main
+python3 -m on_Model.019_Fredkin_Switch_Gate.main
 ```
 or:
 ```bash
-python -m on_Model.005_Three_Nodes_GRN.main
+python3 -m on_Model.004_ABN_for_GRN.main
 ```
 or:
 ```bash
-python -m on_Model.015_Boolean_Probability_Update.main
+python3 -m on_Model.005_Three_Nodes_GRN.main
+```
+or:
+```bash
+python3 -m on_Model.015_Boolean_Probability_Update.main
 ```
 ---
 
@@ -122,6 +137,8 @@ python -m on_Model.015_Boolean_Probability_Update.main
 Simulation results are stored in model-specific directories:
 
 on_Model/.../Temporal_Results/
+
+For Model 019, the released Figure 3 data are archived separately in `Data/on_Model019/`.
 
 Recorded quantities typically include:
 
@@ -169,3 +186,4 @@ These two approaches provide complementary perspectives on information dynamics.
 - Ensemble size should be sufficiently large for stable estimation.
 - Fix random seeds for reproducibility when needed.
 - Care is required when interpreting time-indexed quantities (e.g., $T(t_0)$ vs. $T(t_1)$).
+  
