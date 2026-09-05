@@ -123,21 +123,38 @@ class Fredkin_Switch_Gate(Model_Basics.Model_Basic):
 		plt.close()
 
 	def Plot_Data2(self, N_Trials):
-		Total_X = []
-		Total_Y = []
-		X_Data = []
-		Y_Data = []
+		Internal_Data = []
+		External_Data = []
+		i = 5
 		for j in range(N_Trials): #the number of trials
-			for i in range(N_Param):
-				Directory = self.Save_Directory + "Paper_%03d/Case%03d/Link_Ext_p.txt"%(j+1,i)
-				Data_Flow = self.Read_for_(Directory)
-				Y_Data[i].append(Data_Flow["TE2"][25])
-				Total_Y.append(Data_Flow["TE2"][25])
+			Directory = self.Save_Directory + "Paper_%03d/Case%03d/Link_Ext_p.txt"%(j+1,i)
+			Data_Flow = self.Read_for_(Directory)
+			External_Data.append(Data_Flow["TE2"])
 				
-				Directory = self.Save_Directory + "Paper_%03d/Case%03d/Link_A%d_p.txt"%(j+1,i,self.N)
-				Data_Flow = self.Read_for_(Directory)
-				X_Data[i].append(Data_Flow["TE2"][24])
-				Total_X.append(Data_Flow["TE2"][24])
+			Directory = self.Save_Directory + "Paper_%03d/Case%03d/Link_A%d_p.txt"%(j+1,i,self.N)
+			Data_Flow = self.Read_for_(Directory)
+			Internal_Data.append(Data_Flow["TE2"])
+			
+		Internal_Data = numpy.asarray(Internal_Data, dtype=float)
+		External_Data = numpy.asarray(External_Data, dtype=float)
+		Internal_Mean = numpy.mean(Internal_Data, axis=1)
+		External_Mean = numpy.mean(External_Data, axis=1)
+		time_st = 20
+		time_ed = 35
+		timeline = list(range(time_st,time_ed))
+		plt.figure(figsize=(9,4))
+		for j in range(N_Trials):
+			plt.plot(timeline, Internal_Data[j][time_st:time_ed], label="Estimation"+r'$T_{A3 \to p} (t)$',marker='o', markersize = 4, markerfacecolor = '#2166ac', linewidth = 0)
+			plt.plot(timeline, External_Data[j][time_st:time_ed], label="Estimation"+r'$T_{Ext \to p} (t)$',marker='o', markersize = 4, markerfacecolor = '#d95f02', linewidth = 0)
+		plt.plot(timeline, Internal_Mean[time_st:time_ed], label="mean curve"+r'$T_{A3 \to p} (t)$',marker='o', markersize = 4, markerfacecolor = '#2188dd', linewidth = 1)
+		plt.plot(timeline, External_Mean[time_st:time_ed], label="mean curve"+r'$T_{Ext \to p} (t)$',marker='o', markersize = 4, markerfacecolor = '#fb9f02', linewidth = 1)
+		plt.xlabel(r'Time steps')
+		plt.ylabel(r'Transfer Entropy (nats)')
+		plt.title("Evolution of Information Flows : Time"+r'$ t vs T_{A3 \to p} (t)$, $T_{Ext \to p} (t)$')
+		plt.legend()
+		plt.tight_layout()
+		plt.savefig(self.Save_Directory+"Figure3_b.png")
+		plt.close()
 				
 if __name__ == "__main__":
 	N_Trials = 5
@@ -148,10 +165,14 @@ if __name__ == "__main__":
 			print("\n Trial %03d , Case %03d"%(j+1,i))
 			TEST = Fredkin_Switch_Gate(n = 3, theta = 0.24 - 0.02 * i)
 			TEST.Save_Directory = "./on_Model/019_Fredkin_Switch_Gate/Temporal_Results/Paper_%03d/Case%03d/"%(j+1,i)
-			os.mkdir(TEST.Save_Directory)
-			TEST.Initialize()		
-			TEST.Generate_Data()
+			try:
+				os.mkdir(TEST.Save_Directory)
+				TEST.Initialize()		
+				TEST.Generate_Data()
+			except FileExistsError:
+				print("exists")
 			
 	TEST = Fredkin_Switch_Gate(n = 3)
 	TEST.Plot_Data(N_Trials,N_Param)
+	TEST.Plot_Data2(N_Trials)
 		
