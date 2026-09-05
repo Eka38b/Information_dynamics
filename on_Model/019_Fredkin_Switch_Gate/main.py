@@ -26,7 +26,7 @@ class Fredkin_Switch_Gate(Model_Basics.Model_Basic):
 		self.Size_of_Ensemble = 10000
 		
 		
-		self.Save_Directory = "./Data/on_Model019/"
+		self.Save_Directory = "./on_Model/019_Fredkin_Switch_Gate/Temporal_Results/"
 		
 		self.Selected_Nodes = ["p"]
 		self.Selected_Links = [("A%d"%self.N,"p"), ("Ext","p"),("p","A1")]
@@ -96,12 +96,12 @@ class Fredkin_Switch_Gate(Model_Basics.Model_Basic):
 			Y_Data.append([])
 		for j in range(N_Trials): #the number of trials
 			for i in range(N_Param):
-				Directory = "./Data/on_Model019/Paper_%03d/Case%03d/Link_Ext_p.txt"%(j+1,i)
+				Directory = self.Save_Directory + "Paper_%03d/Case%03d/Link_Ext_p.txt"%(j+1,i)
 				Data_Flow = self.Read_for_(Directory)
 				Y_Data[i].append(Data_Flow["TE2"][25])
 				Total_Y.append(Data_Flow["TE2"][25])
 				
-				Directory = "./Data/on_Model019/Paper_%03d/Case%03d/Link_A%d_p.txt"%(j+1,i,self.N)
+				Directory = self.Save_Directory + "Paper_%03d/Case%03d/Link_A%d_p.txt"%(j+1,i,self.N)
 				Data_Flow = self.Read_for_(Directory)
 				X_Data[i].append(Data_Flow["TE2"][24])
 				Total_X.append(Data_Flow["TE2"][24])
@@ -123,25 +123,22 @@ class Fredkin_Switch_Gate(Model_Basics.Model_Basic):
 		plt.title("Competing Information Flows : "+r'$T_{A3 \to p} (t_{0})$ vs $T_{Ext \to p} (t_{1})$')
 		plt.legend()
 		plt.tight_layout()
-		plt.savefig("./Data/on_Model019/Figure3.png")
+		plt.savefig(self.Save_Directory+"Figure3.png")
 		plt.close()
 	
 if __name__ == "__main__":
 	N_Trials = 5
 	N_Param = 10
 	for j in range(N_Trials): #the number of trials
-		os.makedirs("./Data/on_Model019/Paper_%03d/"%(j+1), exist_ok=True)
+		os.makedirs("./on_Model/019_Fredkin_Switch_Gate/Temporal_Results/Paper_%03d/"%(j+1), exist_ok=True)
 		for i in range(N_Param):
 			print("\n Trial %03d , Case %03d"%(j+1,i))
 			TEST = Fredkin_Switch_Gate(n = 3, theta = 0.24 - 0.02 * i)
-			TEST.Save_Directory = "./Data/on_Model019/Paper_%03d/Case%03d/"%(j+1,i)
-			try:
-				os.mkdir(TEST.Save_Directory)
-				TEST.Initialize()		
-				TEST.Generate_Data()
-			except FileExistsError:
-				print("exists.")
-
+			TEST.Save_Directory = "./on_Model/019_Fredkin_Switch_Gate/Temporal_Results/Paper_%03d/Case%03d/"%(j+1,i)
+			os.mkdir(TEST.Save_Directory)
+			TEST.Initialize()		
+			TEST.Generate_Data()
+			
 	TEST = Fredkin_Switch_Gate(n = 3)
 	TEST.Plot_Data(N_Trials,N_Param)
 		
