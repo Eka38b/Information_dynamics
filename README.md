@@ -4,7 +4,7 @@
 
 A computational framework for studying the dynamics of information-theoretic quantities in non-stationary networked systems.
 
-The repository combines reusable Python modules, model-based simulations, direct information-dynamical equations, archived numerical data, and the manuscripts developed with the framework. The principal quantities are entropy ($H$), mutual information ($I$), transfer entropy ($T$), and reversed transfer entropy ($\widetilde{T}$).
+The repository combines reusable Python modules, model-based simulations, direct information-dynamical equations, archived numerical data, and the manuscripts developed with the framework. The principal quantities are entropy ($H$), mutual information ($I$), transfer entropy ($T$), and reversed transfer entropy ($T^{\dagger}$).
 
 This archive corresponds to version **v0.1.4b**.
 
