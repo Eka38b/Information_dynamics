@@ -1,0 +1,564 @@
+%% Author_tex.tex
+%% V1.0
+%% 2012/12/11
+%% developed by Techset
+%%
+%% This file describes the coding for comnet.cls
+
+\documentclass{comnet}%%%%where comnet is the template name
+%%%% To get the unnumbered reference the authors should use unnumbib in the optional of \documentclass.
+%%%% Ex:\documentclass[unnumbib]{comnet}
+
+%The authors can define any packages after the \documentclass{comnet} command.
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+%\usepackage{amsthm} for dealing with theorem environments,
+%\usepackage{cite} for dealing with citations
+%\usepackage{hyperref} for linking the cross references
+\usepackage{graphicx}
+%\usepackage{algorithmic} for describing algorithms
+\usepackage{subfig}
+
+%\usepackage{url} It provides better support for handling and breaking URLs.
+
+
+% *** Do not adjust lengths that control margins, column widths, etc. ***
+
+\begin{document}
+
+\title{A Directed-Hypergraph Representation of Higher-Order Information Flows}
+
+\shorttitle{A Directed-Hypergraph Representation of Higher-Order Information Flows} %%%for recto running head
+\shortauthorlist{Yunju Lee} %%% for verso running head
+
+\author{%%%% First author details
+\name{Yunju Lee$^*$}
+\address{Independent Researcher, Seoul, Republic of Korea}\email{$^*$Corresponding author: eka7268de@aol.com}}
+
+\maketitle
+
+\begin{abstract}
+{A statistical approach to higher-order interactions requires an understanding of higher-order correlations among components. The information dynamics of these correlations can be encoded using multiple transfer entropy and multiple reversed transfer entropy. This paper investigates the relationship between the topology of higher-order information flows and the entropy dynamics of individual components. Because a multiple transfer entropy has a source set and a target set, its structure can be naturally represented by a hyperarc. By distinguishing statistically direct and indirect relationships, we introduce an information flow hypergraph and analyze its BF-hypergraph substructure in terms of BF-sinks, BF-sources, and weak BF-hypercycles. Under the strong blocking flows condition and $\alpha_{1} = 0$, periodic or recurrent entropy dynamics with a fixed nonempty flow topology requires the presence of a weak BF-hypercycle. We further show that stationarity imposes an additional local balance condition between B-inflows and F-outflows. The corresponding result for cycles in classical directed graph theory is recovered as a special case.}
+{mutual information; transfer entropy; information dynamics; higher-order correlation; complex network; directed hypergraphs}
+\end{abstract}
+
+
+\section{\label{sec:Intro} Introduction}
+
+Synergistic effects are key characteristics of higher-order dynamics \cite{Battiston2020,Battiston2021,Rosas2022,Gallo2022,Majhi2022,Zhang2023,Bick2023} and distinguish many-body interactions from purely pairwise interactions. For a statistical characterization of such dynamics, several studies \cite{Matsuda2000,Schneidman2003,Rosas2019,Williams2010} have adopted information-theoretic approaches. In particular, partial information decomposition (PID) \cite{Williams2010,Kolchinsky2022} provides nonnegative measures of synergistic and redundant information, although their definitions are not unique. In this paper, we instead employ  multiple mutual information, also referred to as interaction information or co-information \cite{McGill1954,Fano1949,Ting1962,Han1980,Yeung1991,Matsuda2000,Bell2003,Krippendorff2009}. Although it is a signed quantity, multiple mutual information is uniquely defined inductively for arbitrary orders. It therefore can capture higher-order correlation structures that cannot be reduced to ordinary pairwise mutual information \cite{Matsuda2000,Schneidman2003}.\\
+
+The temporal evolution of such higher-order correlations can be described using multiple transfer entropy and multiple reversed transfer entropy \cite{Lee2026a}. These quantities extend the decomposition of mutual-information dynamics to higher orders, capturing directional higher-order information flows. However, their topological organization has not yet been systematically characterized.\\
+
+This paper introduces an information flow hypergraph to represent the topology of direct higher-order information flows. A multiple transfer entropy $T_{A \to B}$ contains a source set $A$ and a target set $B$, which naturally correspond to the tail and head of a hyperarc \cite{Gallo1993,Nguyen1998,Bretto2013}. Since nonzero transfer entropy may also reflect indirect statistical dependencies, direct information flows are identified using dynamical neighbors. The resulting representation consists of hyperarcs corresponding to direct multiple transfer entropies and multiple reversed transfer entropies.\\
+
+The entropy dynamics of an individual vertex is governed by a BF-hypergraph substructure composed of B-arcs and F-arcs \cite{Gallo1993,Nguyen1998,Steinmetz2019}. Under the strong blocking flows condition and deterministic reversible dynamics, this structure constrains the possible evolution of the vertex entropy. In particular, a finite oriented BF-hypergraph without weak BF-hypercycles possesses a BF-sink and a BF-source. At a BF-sink, the entropy increases strictly, whereas at a BF-source it decreases strictly. This result generalizes the pairwise argument developed in Ref. \cite{Lee2026b}.\\
+
+A weak BF-hypercycle is therefore necessary for periodic or recurrent entropy dynamics when the nonempty flow topology is fixed and the standing assumptions hold at every step. However, unlike a cycle in classical directed graph theory \cite{Diestel2017,Kleinberg2005}, a weak BF-hypercycle does not necessarily admit a stationary state. This paper derives an additional necessary condition for stationarity: every non-isolated vertex must have both a B-inflow and an F-outflow. Their aggregate contributions must also balance numerically.\\
+
+The remainder of this paper is organized as follows. Section \ref{sec:Defs} reviews the definitions of higher-order information dynamics and directed hypergraphs. Section \ref{sec:Identification} introduces the information flow hypergraph and the blocking flows conditions. Section \ref{sec:ID_without_Cycle} analyzes BF-hypergraphs without weak BF-hypercycles. Section \ref{sec:ID_of_Single_Cycle} derives a necessary condition for stationary information dynamics on the entire active graph.\\
+
+\section{\label{sec:Defs} Definitions}
+\subsection{\label{sec:Defs_InfoDyn} Higher-Order Information Dynamics}
+Consider an $N$-component system labeled with a finite set $V$. The state of $v \in V$ at time $t$ is denoted as $\Gamma_{v}(t)$ taking values in a discrete space. An ensemble description or stochastic dynamics of the entire system induces a joint probability. Information-theoretic quantities can then be used to characterize statistical correlations and directional information flows among the components. All entropies used below are finite, and logarithms are natural. The symbol $\subset$ allows equality, and an empty subset sum is zero.
+\begin{definition}
+	For $v \in V$, the \textbf{Shannon entropy} $H_{v}$ \cite{Shannon1949, Cover1991} is defined as:
+	\begin{equation}
+			H_{v} := - \sum_{\gamma_{v} \in \mathcal{M}} \mathbb{P}(\Gamma_{v} = \gamma_{v}) \log \mathbb{P}(\Gamma_{v} = \gamma_{v}).
+	\end{equation}
+	And we also define Shannon entropy of $A := \{a_1, \dots, a_k \} \subset V$ as:
+	\begin{equation}
+			H_{A} := - \sum_{\gamma_{a_{1}}, \dots, \gamma_{a_{k}} \in \mathcal{M}} \mathbb{P}(\Gamma_{a_{1}} = \gamma_{a_{1}}, \dots, \Gamma_{a_{k}} = \gamma_{a_{k}}) \log \mathbb{P}(\Gamma_{a_{1}} = \gamma_{a_{1}}, \dots, \Gamma_{a_{k}} = \gamma_{a_{k}}).
+	\end{equation}
+	Then, the \textbf{conditional entropy} is defined as: for $v, u \in V$,
+	\begin{equation}
+			H_{u}|_{v} := H_{\{v,u\}} - H_{v},
+	\end{equation}
+	and, for $A, B \subset V$,
+	\begin{equation}
+			H_{B}|_{A} := H_{A \cup B} - H_{A}.	\end{equation}
+	Here, $\Gamma_{v}$, $\Gamma_{u}$, and $\Gamma_{a_{1}}, \dots, \Gamma_{a_{k}}$ are discrete random variables in a state space $\mathcal{M}$.\\
+\end{definition}
+
+\begin{definition}
+	For $v, u \in V$, the \textbf{mutual information} \cite{Cover1991} between $\Gamma_{v}$ and $\Gamma_{u}$ quantifies the reduction in the uncertainty of $\Gamma_{u}$ obtained by conditioning on $\Gamma_{v}$:\\
+	\begin{equation}
+		I_{v:u} := H_{u} - H_{u}|_{v} = H_{v} + H_{u} - H_{\{v, u\}}.
+	\end{equation}
+	The \textbf{conditional mutual information} is defined as\\
+	\begin{equation}
+		I_{v:u}|_{w} := H_{v}|_{w} + H_{u}|_{w} - H_{\{v, u\}}|_{w},
+	\end{equation}
+	with $w \in V$.
+\end{definition}
+We also use the notation $I_{(A) : v'}|_{v} := H_{\{v'\}}|_{\{v\}} - H_{\{v'\}}|_{\{v\} \cup A}$ for $v \in V, A \subset V$.\\
+
+For discrete random variables, the Shannon entropy, conditional entropy, and mutual information are nonnegative.\\
+
+\begin{definition}
+	For $A \subset V$, the \textbf{multiple mutual information (co-information)} \cite{McGill1954, Fano1949, Han1980} is a signed generalization of mutual information that characterizes higher-order statistical dependence.
+	\begin{equation}
+		I^{\text{co}}_{A} := \sum_{r = 1}^{|A|} (-1)^{r+1} \sum_{S \subset A, |S|=r}H_{S}.
+	\end{equation}
+	And the \textbf{conditional multiple mutual information} is defined as,
+	\begin{equation}
+		I^{\text{co}}_{A}|_{B} := \sum_{r = 1}^{|A|} (-1)^{r+1} \sum_{S \subset A, |S|=r}H_{S}|_{B},
+	\end{equation}
+\end{definition}
+We note that the cases where $|A| = 2$ corresponds to the mutual information, and $|A| = 1$ for Shannon entropy. \\
+
+The temporal evolution of correlations can be related to directional information flows \cite{Lee2026a}. In an information-theoretic framework, such directional dependencies are characterized using transfer entropy \cite{Barnett2009}.
+
+\begin{definition}
+	In the one-step formulation adopted here, the \textbf{transfer entropy} \cite{Schreiber2000, Bossomaier2016} from $u \in V$ to $v \in V$ measures a directional predictive dependence of $v$ on $u$: \\
+	\begin{equation}
+		T_{u \to v} := I_{v':u}|_{v},
+	\end{equation}
+	where unprimed and primed variables are evaluated at times $t$ and $t + \Delta t$, respectively, with $\Delta t > 0$.\\
+\end{definition}
+
+\begin{definition}
+	\textbf{Reversed transfer entropy} \cite{Ito2016, Spinney2016, Spinney2018b}, also referred to as backward transfer entropy \cite{Ito2016}, is defined by reversing the temporal indexing in the transfer-entropy expression:
+	\begin{equation}
+		T^{\dagger}_{u \to v} := I_{v:u'}|_{v'}.
+	\end{equation}
+\end{definition}
+
+\begin{definition}
+	\textbf{Multiple transfer entropy} and \textbf{multiple reversed transfer entropy} \cite{Lee2026a} are higher-order generalizations of transfer entropy and reversed transfer entropy:
+	\begin{equation}\begin{aligned}
+			&T_{B \to A} := I^{\text{co}}_{A' \cup B}|_{A} \\
+			&T^{\dagger}_{B \to A} := I^{\text{co}}_{A \cup B'}|_{A'},
+	\end{aligned}\end{equation}
+	for nonempty disjoint $A, B \subset V$.\\
+\end{definition}
+We also note that multiple transfer entropy and multiple reversed transfer entropy become the transfer entropy and reversed transfer entropy when $|A| = |B| = 1$.\\
+
+Using these quantities, Ref.~\cite{Lee2026a} derived exact decompositions of the temporal changes in entropy with transfer entropy and reversed transfer entropy:
+\begin{equation}
+		\Delta H_{v} = \sum_{\eta \in  K_{v}} [T_{\eta \to v} - T^{\dagger}_{\eta \to v}] -  E_{K_{v} \to v} + \alpha_{1}^{K_{v} \to v},
+		\label{eq:InfoDyn_H_I}\end{equation}
+where,
+\begin{equation}\begin{aligned}
+		&E_{K_{v} \to v} := \sum_{u=2}^{|K_{v}|} (-1)^{u}\sum_{S \subset  K_{v}, |S|=u} [T_{S \to \{v\}} - T^{\dagger}_{S \to \{v\}}]\\
+		&\alpha_{1}^{K_{v} \to v} := H_{\{v'\}}|_{\{v\}\cup K_v} - H_{\{v\}}|_{\{v'\}\cup K'_v}.
+\end{aligned}\end{equation}
+In this identity, $K_{v}$ may be any subset of $V \setminus \{v\}$. The term $\alpha_{1}$ represents residual contributions that are not expressed as transfer entropy or reversed transfer entropy. Its roles under deterministic reversible dynamics will be discussed in Section \ref{sec:Identification_Alpha1_Condition}.\\
+
+\subsection{\label{sec:Defs_Hypergraph} Directed Hypergraphs}
+We summarize the definitions from directed-hypergraph theory that are required for the subsequent analysis \cite{Gallo1993,Nguyen1998,Bretto2013,Ausiello2017}.\\
+\begin{definition}
+	A \textbf{directed hypergraph} $(V, \overrightarrow{E})$ consists of a finite set $V$ of vertices and a nonempty set $\overrightarrow{E} \subset \{ (e^{+}, e^{-}) | e^{+}, e^{-} \subset V \text{\ and\ } e^{+} \not= \emptyset, e^{-} \not= \emptyset, e^{+} \cap e^{-} = \emptyset \}$ of hyperarcs. The set of reversed hyperarcs is defined as $\overleftarrow{E} := \{ (e^{-}, e^{+}) | (e^{+}, e^{-}) \in \overrightarrow{E} \}$. The directed hypergraph $(V, \overleftarrow{E})$ is called the \textbf{symmetric image} of $(V, \overrightarrow{E})$. For a hyperarc $\overrightarrow{e}= (e^{+}, e^{-}) \in \overrightarrow{E}$, the sets $e^{+}$ and $e^{-}$ are called its tail and head, respectively, and are denoted by $\mathcal{T}(\overrightarrow{e})$ and $\mathcal{H}(\overrightarrow{e})$.\\
+\end{definition} 
+
+We assume that a directed hypergraph $(V, \overrightarrow{E})$ has no isolated vertices, namely,
+\begin{equation}
+	V = \bigcup_{\overrightarrow{e} \in \overrightarrow{E}} [\mathcal{T}(\overrightarrow{e}) \cup \mathcal{H}(\overrightarrow{e})].
+\end{equation}
+
+\begin{definition}
+	An \textbf{oriented hypergraph} $(V, \overrightarrow{E})$ is a directed hypergraph $(V, \overrightarrow{E})$ satisfying $\overrightarrow{E} \cap \overleftarrow{E} = \emptyset$.\\
+\end{definition} 
+
+\begin{definition}
+	A \textbf{BF-hypergraph} $(V, \overrightarrow{E})$ is a directed hypergraph $(V, \overrightarrow{E})$ such that $|e^{+}| = 1$ or $|e^{-}| = 1$ for every $(e^{+},e^{-}) \in \overrightarrow{E}$, and $V = \bigcup_{\overrightarrow{e} \in \overrightarrow{E}} [\mathcal{T}(\overrightarrow{e}) \cup \mathcal{H}(\overrightarrow{e})]$. Specifically, the hyperarc $\overrightarrow{e_{B}} = (e^{+},e^{-}) \in \overrightarrow{E}$ with $|e^{-}| = 1$ is called the B-arc, while the hyperarc $\overrightarrow{e_{F}} = (e^{+},e^{-}) \in \overrightarrow{E}$ with $|e^{+}| = 1$ is called the F-arc. An ordinary directed edge in a directed graph satisfies both conditions and can therefore be regarded as both a B-arc and an F-arc.\\
+\end{definition} 
+
+\begin{definition}
+	For a vertex $v \in V$ in a BF-hypergraph $(V, \overrightarrow{E})$, the \textbf{B-inflow} set of $v$, denoted by $\text{In}_{B}(v)$, is the set of B-arcs directed toward $v$: $\text{In}_{B}(v) := \{ (e^{+}, e^{-}) \in \overrightarrow{E} | e^{-} = \{ v \} \}$. Similarly, the \textbf{B-outflow} set of $v$ is defined as $\text{Out}_{B}(v) := \{ (e^{+}, e^{-}) \in \overrightarrow{E} | v \in e^{+} \text{\ and\ } |e^{-}| = 1\}$. The definitions for \textbf{F-inflow} and \textbf{F-outflow} are $\text{In}_{F}(v) := \{ (e^{+}, e^{-}) \in \overrightarrow{E} | v \in e^{-} \text{\ and\ } |e^{+}| = 1\}$ and $\text{Out}_{F}(v) := \{ (e^{+}, e^{-}) \in \overrightarrow{E} | e^{+} = \{ v \} \}$.\\ 
+\end{definition}
+
+\begin{definition}
+	A \textbf{BF-sink} is a vertex $v \in V$ such that $\text{Out}_{B}(v) = \emptyset$, $\text{Out}_{F}(v) = \emptyset$, and $\text{In}_{B}(v) \cup \text{In}_{F}(v) \not= \emptyset$. A \textbf{BF-source} is a vertex $v \in V$ such that $\text{In}_{B}(v) = \emptyset$, $\text{In}_{F}(v) = \emptyset$, and $\text{Out}_{B}(v) \cup \text{Out}_{F}(v) \not= \emptyset$. \\ 
+\end{definition}
+
+\begin{definition}
+	In a directed hypergraph $(V, \overrightarrow{E})$, a \textbf{weak hyperpath} from $v_{1}$ to $v_{n+1}$ is defined as a $(2n+1)$-tuple $(v_{1}, \overrightarrow{e_{1}}, v_{2}, \overrightarrow{e_{2}}, \dots, \overrightarrow{e_{n}}, v_{n+1})$ such that $v_{i} \in \mathcal{T}(\overrightarrow{e_{i}})$ and $v_{i+1} \in \mathcal{H}(\overrightarrow{e_{i}})$ with $\overrightarrow{e_{i}} \in \overrightarrow{E}$ for $\forall i \in \{ 1, 2, \dots, n\}$. A vertex $s \in V$ is \textbf{connected} to $u \in V$ if a weak hyperpath from $u$ to $s$ exists. 
+	Furthermore, a nonempty subset $S \subset V$ is \textbf{connected} to the nonempty subset $U \subset V$ if there are $u \in U$ and $s \in S$ such that $s$ is connected to $u$.\\
+\end{definition}
+
+\begin{definition}
+	The \textbf{transitive closure} of a directed hypergraph $\mathcal{G} = (V, \overrightarrow{E})$ is a directed hypergraph $\mathcal{G}^{*}=(V, \overrightarrow{E^{*}})$ such that, for any nonempty disjoint subsets $U, S \subset V$, $(U,S) \in \overrightarrow{E^{*}}$ if and only if, for every $u\in U$ and every $s\in S$, a weak hyperpath from $u$ to $s$ exists in $\mathcal{G}$.\\
+\end{definition}
+
+\begin{definition}
+	A \textbf{weak BF-hypercycle} of length $n$ in a BF-hypergraph $(V, \overrightarrow{E}_{BF})$ is a weak hyperpath $(v_{1}, \overrightarrow{e_{1}}, v_{2}, \overrightarrow{e_{2}}, \dots, \overrightarrow{e_{n}}, v_{n+1})$ in $(V, \overrightarrow{E}_{BF})$ such that $v_{1} = v_{n+1}$.\\
+\end{definition}
+In the definition of weak BF-hypercycle, no distinctness condition is imposed on the intermediate vertices or hyperarcs.
+
+
+\section{\label{sec:Identification}Identification of Higher-Order Information Flows}
+\subsection{\label{sec:Identification_InfoHyper}Information Flow Hypergraph}
+Consider an $N$-component system with a joint probability distribution. Let $V = \{ v_{1}, \dots, v_{N} \}$ be the set of components. The set of all nonzero multiple transfer entropies is defined as,
+\begin{equation}
+	\overrightarrow{E}_{total} := \{ (A, B) | A, B \subset V \text{ are nonempty and disjoint, and } T_{A \to B} \not= 0 \}. 
+\end{equation}
+However, $\overrightarrow{E}_{total}$ may contain indirect statistical relationships. For example, $T_{p \to q}$ can be nonzero even when the influence of $p$ reaches $q$ through intermediate components. Therefore, we consider information flows that are direct in the sense of the dynamical-neighbor definition below.\\
+
+\begin{definition}
+	A set of \textbf{dynamical neighbors} $K_{A} \subset V \setminus A$ of a nonempty $A \subset V$ is an inclusion-minimal set satisfying,
+\begin{equation}
+	 H_{A'}|_{A \cup K_{A}} = 0,
+\end{equation}
+where the primed variables are evaluated at the next time step. Similarly, a set of \textbf{backward dynamical neighbors} $Q_{A} \subset V \setminus A$ is an inclusion-minimal set satisfying,
+\begin{equation}\label{eq:backward_neighbors}
+ H_{A}|_{A' \cup Q'_{A}} = 0.
+\end{equation}
+Here, $Q'_{A}$ denotes the future variables corresponding to the vertex labels in $Q_{A}$.
+\end{definition}
+We denote $K_{v} := K_{\{v\}}$ and $Q_{v} := Q_{\{v\}}$ for the singleton case.\\
+
+To ensure that the dynamical neighbors are well defined, we assume the dynamics of $N$ components is described as: for $F: \mathcal{M}^{N}\times \mathbb{R} \to \mathcal{M}^{N}$,
+\begin{equation}
+	(\Gamma_{v_{1}} (t + \Delta t), \dots, \Gamma_{v_{N}} (t + \Delta t)) = F(\Gamma_{v_{1}} (t), \dots, \Gamma_{v_{N}} (t), t),
+	\label{eq:Deterministic_Dynamics}\end{equation}
+where $\Gamma_{v}$ is the state of component $v \in V$. For the subsequent entropy results, we also assume that the full state can be reconstructed from its future state:
+\begin{equation}\label{eq:Reversible_Dynamics}
+ (\Gamma_{v_{1}}(t),\dots,\Gamma_{v_{N}}(t)) = \widetilde F(\Gamma_{v_{1}}(t+\Delta t),\dots,\Gamma_{v_{N}}(t+\Delta t),t+\Delta t).
+\end{equation}
+Thus, $V \setminus A$ satisfies each reconstruction condition. Since $V$ is finite, inclusion-minimal sets $K_A$ and $Q_A$ exist. Stochastic input examples in Appendix \ref{app:Identification_Examples} are used only to illustrate local flow quantities.\\
+However, the sets of dynamical neighbors are not necessarily unique. We therefore define,
+\begin{equation}
+	\begin{aligned}
+ \overline{\mathcal{K}}_{A} &:= \{ K \subset V \setminus A | K \text{ is a set of dynamical neighbors of } A \},\\
+ \overline{\mathcal{Q}}_{A} &:= \{ Q \subset V \setminus A | Q \text{ is a set of backward dynamical neighbors of } A \}.
+\end{aligned}
+\end{equation}
+
+Then, the set of direct multiple transfer entropies is defined as $\overrightarrow{E}_{T} := \{ (A, B) \in \overrightarrow{E}_{total} \allowbreak | \exists K_{B} \in \overline{\mathcal{K}}_{B} \text{\ such that\ } A \subset K_{B} \}$. The set $\overrightarrow{E}_{T}$ contains the forward terms used in the entropy expansion in Sec. \ref{sec:Identification_Alpha1_Condition}. However, Proposition \ref{prop:Transitive_Closure} shows that the connectivity of $(V, \overrightarrow{E}_{total})$ is not generally preserved in $(V, \overrightarrow{E}_{T})$. Thus, some indirect statistical relationships cannot be represented as chains of direct information flows.
+
+\begin{proposition}
+	In general, $\mathcal{G}_{T}^{*} \not= \mathcal{G}_{total}^{*}$, where $\mathcal{G}_{T} = (V, \overrightarrow{E}_{T})$, $\mathcal{G}_{total} = (V, \overrightarrow{E}_{total})$.\\
+	\label{prop:Transitive_Closure}\end{proposition}
+(proof) Appendix \ref{app:Proof_Transitive}.\\
+\quad \\ \quad \\
+However, if one modifies the definition of $\overrightarrow{E}_{T}$ as $\overrightarrow{E}_{\bar{T}} := \{ (A, B) \in \overrightarrow{E}_{total} \allowbreak | \exists K_{B} \in \overline{\mathcal{K}}_{B} \text{\ such that\ } A \cap K_{B} \not= \emptyset \}$, the specific example for Proposition \ref{prop:Transitive_Closure}, addressed in Appendix \ref{app:Proof_Transitive}, loses its meaning: $X$ and $Y$ are connected in $\mathcal{G}_{\bar{T}}= (V, \overrightarrow{E}_{\bar{T}})$, as the redundant information flow exists. Specifically, $T_{\{Y, C \} \to \{ X \}} = \ln 2-h(\varepsilon)>0$, indicating $(\{Y, C \}, \{ X \}) \in \overrightarrow{E}_{\bar{T}}$. Moreover, Proposition \ref{prop:Transitive_Closure_v2} shows that $\mathcal{G}_{\bar{T}}^{*} = \mathcal{G}_{total}^{*}$.\\ \quad \\
+
+\begin{proposition}
+	$\mathcal{G}_{\bar{T}}^{*} = \mathcal{G}_{total}^{*}$, where $\mathcal{G}_{\bar{T}} = (V, \overrightarrow{E}_{\bar{T}})$, $\mathcal{G}_{total} = (V, \overrightarrow{E}_{total})$.\\
+	\label{prop:Transitive_Closure_v2}\end{proposition}
+(proof) Appendix \ref{app:Proof_Transitive_v2}.\\
+
+Although $\overrightarrow{E}_{\bar{T}}$ preserves the connectivity of $\overrightarrow{E}_{total}$, the subsequent analysis uses $\overrightarrow{E}_{T}$, which more strictly identifies direct information flows whose source sets are contained in a set of dynamical neighbors.
+
+\begin{definition}
+	A \textbf{transfer-entropy hypergraph} $\mathcal{G}_{T}$ of an $N$-component system is a directed hypergraph $(V, \overrightarrow{E}_{T})$, where $V$ is a set of $N$ components and $\overrightarrow{E}_{T}$ is the set of direct multiple transfer entropies,
+\begin{equation}
+	\overrightarrow{E}_{T} := \{ (A, B) \in \overrightarrow{E}_{total} | \exists K_{B} \in \overline{\mathcal{K}}_{B} \text{ such that } A \subset K_{B} \}. 
+\end{equation}
+Here, a \textbf{reversed-transfer-entropy hypergraph} $\mathcal{G}_{T^{\dagger}}$ is a directed hypergraph $(V, \overrightarrow{E}_{T^{\dagger}})$, where $\overrightarrow{E}_{T^{\dagger}}$ is defined as,
+\begin{equation}
+	 \begin{aligned}
+\overrightarrow{E}_{T^{\dagger}} := \{ (A, B)\ |\ &A,B \subset V \text{ are nonempty and disjoint},\ T^{\dagger}_{A \to B} \not= 0,\\
+ &\exists Q_B \in \overline{\mathcal{Q}}_B \text{ such that } A \subset Q_B \}.
+\end{aligned}
+\end{equation}
+\end{definition}
+We note that $\mathcal{G}_{T}$ and $\mathcal{G}_{T^{\dagger}}$ use the dynamical neighbors for their respective temporal directions. This ensures that the forward and backward terms in the entropy expansion below are represented. It does not assert completeness for the dynamics of all multiple mutual informations.\\
+
+\begin{definition}
+	The \textbf{information flow hypergraph} of an $N$-component system is the ordered pair $\mathcal{G}_{\Delta I} := (\mathcal{G}_{T}, \mathcal{G}_{T^{\dagger}})$, where $\mathcal{G}_{T}$ and $\mathcal{G}_{T^{\dagger}}$ are the transfer-entropy and reversed-transfer-entropy hypergraphs, respectively.\\
+\end{definition}
+
+\subsection{\label{sec:Identification_Alpha1_Condition}Condition for $\alpha_{1} = 0$}
+The subsequent analysis uses the combined set $K^{\mathrm{both}}_{v}:=K_v\cup Q_v$, where $K_v$ and $Q_v$ are sets of dynamical neighbors and backward dynamical neighbors, respectively. By their definitions,
+\begin{equation}
+ H_{\{v'\}}|_{\{v\}\cup K^{\mathrm{both}}_v}=0,
+ \qquad H_{\{v\}}|_{\{v'\}\cup (K^{\mathrm{both}}_v)'}=0.
+\end{equation}
+Therefore,
+\begin{equation}
+ \alpha_1^{K^{\mathrm{both}}_v\to v}=0.
+\end{equation}
+The combined set need not be inclusion-minimal, and the smaller set $K_v$ need not satisfy $\alpha_1^{K_v\to v}=0$. To retain the direct-flow definitions, we expand the two temporal directions separately:
+\begin{equation}\begin{aligned}\label{eq:Separate_Entropy_Balance}
+ \Delta H_v
+ &= I_{(K_v):v'}|_v-I_{(Q'_v):v}|_{v'}\\
+ &=\sum_{\emptyset\ne S\subset K_v}(-1)^{|S|+1}T_{S\to\{v\}}
+ -\sum_{\emptyset\ne R\subset Q_v}(-1)^{|R|+1}T^{\dagger}_{R\to\{v\}}.
+\end{aligned}\end{equation}
+Here, $I_{(K_v):v'}|_v=H_{v'}|_v$ and $I_{(Q'_v):v}|_{v'}=H_v|_{v'}$ are nonnegative. Every nonzero term in each sum is represented in the corresponding flow hypergraph.\\
+
+\subsection{\label{sec:Identification_Blocking_Condition}Blocking Flows Conditions}
+To exclude a trivial cycle formed by simultaneously allowing a hyperarc and its reverse, $v_{1} \to (e^{+}, e^{-}) \to v_{2} \to (e^{-}, e^{+}) \to v_{1}$, we impose the blocking flows condition introduced in Ref. \cite{Lee2026a}. This condition assigns a fixed direction to each information-flow channel.
+\begin{definition}
+	An information flow hypergraph with \textbf{the blocking flows condition} is an information flow hypergraph $\mathcal{G}_{\Delta I} = (\mathcal{G}_{T}, \mathcal{G}_{T^{\dagger}})$ satisfying $\overrightarrow{E}_{T} \cap \overleftarrow{E}_{T} = \emptyset$, $\overrightarrow{E}_{T^{\dagger}} \cap \overleftarrow{E}_{T^{\dagger}} = \emptyset$, and $\overrightarrow{E}_{T} \cap \overrightarrow{E}_{T^{\dagger}} = \emptyset$, where $\mathcal{G}_{T}=(V, \overrightarrow{E}_{T})$ and $\mathcal{G}_{T^{\dagger}}=(V, \overrightarrow{E}_{T^{\dagger}})$.\\
+\end{definition}
+$\mathcal{G}_{T}$ and $\mathcal{G}_{T^{\dagger}}$ in $\mathcal{G}_{\Delta I}$ with the blocking flows condition are oriented hypergraphs. Here, the blocking flows condition is a restriction on the chosen dynamics and ensemble. Introducing separate intermediate channels can be a modeling choice, but does not automatically preserve the original one-step dynamics.
+
+\begin{definition}
+	An information flow hypergraph with \textbf{the strong blocking flows condition} is an information flow hypergraph $\mathcal{G}_{\Delta I} = (\mathcal{G}_{T}, \mathcal{G}_{T^{\dagger}})$ with the blocking flows condition satisfying $\overrightarrow{E}_{T^{\dagger}} = \overleftarrow{E}_{T}$, where $\mathcal{G}_{T}=(V, \overrightarrow{E}_{T})$ and $\mathcal{G}_{T^{\dagger}}=(V, \overrightarrow{E}_{T^{\dagger}})$.\\
+\end{definition}
+
+Then, under the strong blocking flows condition, the hypergraph $\mathcal{G}_{T^{\dagger}}$ becomes the symmetric image of $\mathcal{G}_{T}$. This is an additional assumption matching the presence or absence of hyperarcs, rather than their numerical values.\\
+
+Here, we illustrate how reversed transfer entropy in the inverse direction occurs. Consider three vertices $v,u,w$ with independent fair binary states and the closed copying dynamics,
+\begin{equation}\label{eq:Copying_Cycle}
+ \Gamma_v(t+\Delta t)=\Gamma_u(t),\qquad
+ \Gamma_u(t+\Delta t)=\Gamma_w(t),\qquad
+ \Gamma_w(t+\Delta t)=\Gamma_v(t).
+\end{equation}
+This is a deterministic reversible dynamics with an invariant independent uniform distribution. Then, $K_v=\{u\}$, $Q_v=\{w\}$, and the other neighbor sets follow cyclically. Its only nonzero direct transfer entropies are $T_{u\to v}=T_{v\to w}=T_{w\to u}=\ln 2$, and the reversed transfer entropies have the opposite directions and the same values. Thus, the strong blocking flows condition and $\alpha_1^{K^{\mathrm{both}}_x\to x}=0$ hold for every vertex $x$. However, $\alpha_1^{K_v\to v}=-\ln 2$, showing why the backward neighbors are needed.\\
+
+The strong blocking flows condition restricts the applicable class of dynamics. For example, let $u,v$ be independent fair bits with $\Gamma_u(t+\Delta t)=\Gamma_u(t)$ and $\Gamma_v(t+\Delta t)=\Gamma_v(t)\oplus\Gamma_u(t)$. This dynamics is reversible, but $T_{u\to v}=T^{\dagger}_{u\to v}=\ln 2$, violating the blocking flows condition. More generally, a copying channel $v'=u$ has $T^{\dagger}_{v\to u}=H_u|_{u'}$; this vanishes if $u'$ alone determines $u$. Appendix \ref{app:Identification_Examples} provides local stochastic illustrations without the $\alpha_1=0$ condition.\\
+
+\section{\label{sec:ID_without_Cycle}Higher-Order Information Dynamics without Weak BF-hypercycles}
+
+As described in Eq. (\ref{eq:Separate_Entropy_Balance}), the dynamics of individual entropy $H_{v}$ is determined by higher-order information flows, $T_{S \to \{v\}}$ for $S \subset K_v$ and $T^{\dagger}_{R \to \{v\}}$ for $R \subset Q_v$. We fix $K_v\in\overline{\mathcal K}_v$ and $Q_v\in\overline{\mathcal Q}_v$ in Eq. (\ref{eq:Separate_Entropy_Balance}). From the strong blocking flows condition, a nonzero $T^{\dagger}_{R \to \{v\}}$ implies the nonzero $T_{\{v\} \to R}$. We therefore focus on the hyperarcs associated with nonzero $T_{S \to \{v\}}$ and $T_{\{v\} \to R}$ in $\mathcal{G}_{T}=(V, \overrightarrow{E}_{T})$ for an information flow hypergraph $\mathcal{G}_{\Delta I} = (\mathcal{G}_{T}, \mathcal{G}_{T^{\dagger}})$. All B- and F-arcs in $\mathcal G_T$ form a BF-hypergraph substructure $\mathcal{G}_{BF} = (V_{BF}, \overrightarrow{E}_{BF})$ of $\mathcal{G}_{T}$. Here, $V_{BF}$ is the set of vertices incident to these arcs; Proposition \ref{prop:Strong_Blocking_Requirement} below gives $V_{BF}=V$ under the standing assumptions. To clarify the role of cyclic structure, we first examine BF-hypergraphs without weak BF-hypercycles. In classical graph theory \cite{Diestel2017,Kleinberg2005}, a directed graph without cycles has a sink and a source. Regarding a weak BF-hypercycle, a similar argument is suggested \cite{Bretto2013}.\\ \quad \\ \quad \\
+
+\begin{proposition}
+	A finite BF-hypergraph $\mathcal{G}_{BF}$ without weak BF-hypercycles possesses a BF-sink and a BF-source.\\
+	\label{prop:Exist_BF_sink_source}\end{proposition}
+(proof)\\
+Assume that a BF-sink does not exist in $\mathcal{G}_{BF} = (V, \overrightarrow{E})$. Then, every vertex in $V$ has at least one B-outflow or F-outflow. For a fixed vertex $v_{1} \in V$, we consider a weak hyperpath $Y_{n}$ and a vertex set $V_{n} \subset V$ such that:
+\begin{equation}\begin{aligned}
+		&Y_{n} := (v_{1}, \overrightarrow{e_{1}}, v_{2}, \overrightarrow{e_{2}}, \dots, \overrightarrow{e_{n}}, v_{n+1})\\
+		&V_{n} := \bigcup_{i=1}^{n} \{ v_{i} \}.
+\end{aligned}\end{equation}
+The hyperpath $Y_{1}$ exists and $|V_{1}| = 1$. If $Y_{n}$ exists, then $Y_{n+1}$ also exists, since $v_{n+1}$ has at least one B-outflow or F-outflow. Meanwhile, if $|V_{n}| = n$, then $|V_{n+1}| = n+1$ from the fact, $v_{n+1} \not\in V_{n}$, which is required to avoid the formation of a weak BF-hypercycle. However, this contradicts the assumption $|V| < \infty$. The existence of a BF-source follows symmetrically by applying the same argument to the symmetric image of the hypergraph. $\blacksquare$ \\ \quad \\
+
+Therefore, a BF-hypergraph without weak BF-hypercycles in $\mathcal{G}_{T}$ has a BF-sink and BF-source. While Proposition \ref{prop:Exist_BF_sink_source} is a general result, Proposition \ref{prop:Strong_Blocking_Requirement} demonstrates the structural requirements imposed on $\mathcal G_T$ by the standing assumptions, using Lemma \ref{lemma:Vanishing_All}.\\
+
+\begin{lemma}
+	$T_{S \to \{v\}} = 0$ for every nonempty subset $S \subset K_{v}$, if and only if $I_{(K_{v}) : v'}|_{v} := H_{\{v'\}}|_{\{v\}} - H_{\{v'\}}|_{\{v\} \cup K_{v}} = 0$.\\
+	\label{lemma:Vanishing_All}\end{lemma}
+(proof)\\
+($\implies$) Since, 
+\begin{equation}
+	I_{(K_{v}) : v'}|_{v} = \sum_{l=1}^{|K_{v}|} (-1)^{l+1}\sum_{S \subset  K_{v}, |S|=l} T_{S \to \{v\}},
+\end{equation}
+the result follows.\\
+($\impliedby$) If $I_{(K_{v}) : v'}|_{v} = 0$, $T_{u \to v} = 0$ for $\forall S:= \{u\} \subset K_{v}$, such that $|S| = 1$, since,
+\begin{equation}
+	I_{(K_{v}) : v'}|_{v} = T_{u \to v} + I_{(K_{v} \setminus S) : v'}|_{v, S},
+\end{equation}
+and $T_{u \to v} \geqslant 0$ and $I_{(K_{v} \setminus S) : v'}|_{v, S} \geqslant 0$.\\
+Now, suppose that, for $n \in \Bbb N$, $T_{S \to \{v\}} = 0$ for $\forall S \subset K_{v}$, such that $|S| \leqslant n$. Regarding an arbitrary set $P \subset K_{v}$ with $|P| = n+1$, one obtains $I_{(P) : v'}|_{v} = 0$, as,
+\begin{equation}
+	I_{(K_{v}) : v'}|_{v} = I_{(P) : v'}|_{v} + I_{(K_{v} \setminus P) : v'}|_{v, P} = 0,
+\end{equation}
+and $I_{(P) : v'}|_{v} \geqslant 0$ and $I_{(K_{v} \setminus P) : v'}|_{v, P} \geqslant 0$.\\
+Then, 
+\begin{equation}
+	I_{(P) : v'}|_{v} = \sum_{l=1}^{n} (-1)^{l+1}\sum_{S \subset P, |S| = l} T_{S \to \{v\}} + (-1)^{n+2} T_{P \to \{v\}} = 0.
+\end{equation}
+From the assumption, $T_{P \to \{v\}} = 0$.\\
+The induction leads to the desired result. The same argument with reversed temporal indices applies to $T^{\dagger}_{R\to\{v\}}$ and $I_{(Q'_v):v}|_{v'}$. $\blacksquare$ \\
+
+\begin{proposition}
+ Under deterministic reversible dynamics and the strong blocking flows condition, the following statements hold in the transfer-entropy hypergraph $\mathcal G_T$:
+\begin{equation}\begin{aligned}\label{eq:Local_Support}
+ \text{In}_B(v)\ne\emptyset &\quad\Longleftrightarrow\quad H_{v'}|_v>0,\\
+ \text{Out}_F(v)\ne\emptyset &\quad\Longleftrightarrow\quad H_v|_{v'}>0.
+\end{aligned}\end{equation}
+An F-inflow requires a B-inflow, and a B-outflow requires an F-outflow. Every non-isolated vertex has a B-inflow or an F-outflow.
+ \label{prop:Strong_Blocking_Requirement}\end{proposition}
+(proof)\\
+Suppose that $\text{In}_B(v)=\emptyset$. Then, $T_{S\to\{v\}}=0$ for every nonempty $S\subset K_v$. Lemma \ref{lemma:Vanishing_All} and the definition of $K_v$ give $H_{v'}|_v=0$. Conversely, if $H_{v'}|_v=0$, every multiple transfer entropy whose target contains $v$ vanishes, since $v'$ is determined by a conditioning variable. This proves the first equivalence and excludes an F-inflow without a B-inflow.\\
+The strong blocking flows condition identifies an F-outflow in $\mathcal G_T$ with a B-inflow in $\mathcal G_{T^{\dagger}}$. Applying the reversed form of Lemma \ref{lemma:Vanishing_All} to $Q_v$ proves the second equivalence. If $H_v|_{v'}=0$, every reversed transfer entropy whose target contains $v$ vanishes. Strong blocking then excludes every transfer-entropy hyperarc whose source contains $v$, including a B-outflow.\\
+If both conditional entropies vanish, all incoming and outgoing transfer-entropy hyperarcs vanish, including those with multiple vertices in both tail and head. Thus, $v$ is isolated. This proves the remaining assertion. $\blacksquare$\\
+
+\begin{proposition}
+ Consider an information flow hypergraph $\mathcal{G}_{\Delta I} = (\mathcal{G}_{T}, \mathcal{G}_{T^{\dagger}})$ satisfying the strong blocking flows condition under deterministic reversible dynamics. Let $v$ be a BF-sink in $\mathcal{G}_{T}$. Then, $\Delta H_v>0$. For a BF-source in $\mathcal{G}_{T}$, $\Delta H_v<0$.
+ \label{prop:Monotonic_Behavior}\end{proposition}
+(proof)\\
+Consider a BF-sink $v$ with its dynamical neighbors $K_v$ and backward dynamical neighbors $Q_v$ in $\mathcal G_T$. From Eq. (\ref{eq:Separate_Entropy_Balance}), the dynamics of $v$'s entropy $H_v$ is:
+\begin{equation}
+ \Delta H_v=I_{(K_v):v'}|_v-I_{(Q'_v):v}|_{v'}.
+\end{equation}
+If a B-inflow $(e^+,\{v\})$ in $\mathcal G_{T^{\dagger}}$ is nonzero, the corresponding F-outflow $(\{v\},e^+)$ in $\mathcal G_T$ is also nonzero from the strong blocking flows condition. However, it is not the case, as $v$ is a BF-sink in $\mathcal G_T$. Hence, all B-inflows to $v$ in $\mathcal G_{T^{\dagger}}$ are zero. The reversed form of Lemma \ref{lemma:Vanishing_All} gives $I_{(Q'_v):v}|_{v'}=0$, resulting in:
+\begin{equation}
+ \Delta H_v=I_{(K_v):v'}|_v\geqslant 0.
+\end{equation}
+From Lemma \ref{lemma:Vanishing_All}, if $I_{(K_v):v'}|_v=0$, all B-inflows in $\mathcal G_T$ vanish. As a BF-sink has a B-inflow or an F-inflow, and an F-inflow requires a B-inflow by Proposition \ref{prop:Strong_Blocking_Requirement}, it is not the case, resulting in $\Delta H_v>0$.\\
+For a BF-source, $I_{(K_v):v'}|_v=0$ because it has no B-inflow. Its B-outflow or F-outflow requires an F-outflow by Proposition \ref{prop:Strong_Blocking_Requirement}. Therefore, $\Delta H_v=-I_{(Q'_v):v}|_{v'}<0$. $\blacksquare$\\
+
+In conclusion, periodic or recurrent entropy dynamics requires a weak BF-hypercycle when the nonempty flow topology is fixed and the standing assumptions hold at every step. Otherwise, Proposition \ref{prop:Exist_BF_sink_source} gives a fixed BF-sink and BF-source whose entropies change strictly in opposite directions, precluding a return of the entropy vector to, or arbitrarily close to, its initial value. This does not exclude asymptotic relaxation.\\
+
+\section{\label{sec:ID_of_Single_Cycle}Higher-Order Information Dynamics with Weak BF-cycles}
+
+The previous section demonstrates that periodic or recurrent entropy dynamics requires a weak BF-hypercycle under a fixed nonempty topology and the standing assumptions. However, a hypergraph containing weak BF-hypercycles can have structural monotonicity in entropy dynamics as in the case of a BF-sink, depending on the types of hyperarcs. The following results concern all non-isolated vertices of $\mathcal G_T$, including those outside the cycles. Lemma \ref{lemma:Balance_of_H_v} shows how the entropy balance is determined by the types of inflow and outflow.\\
+
+\begin{lemma}
+	Consider an information flow hypergraph $\mathcal{G}_{\Delta I} = (\mathcal{G}_{T}, \mathcal{G}_{T^{\dagger}})$ satisfying the strong blocking flows condition, under deterministic reversible dynamics. For any vertex $v$ in the active transfer-entropy hypergraph $\mathcal{G}_{T}$:\\
+	\textbf{(a)} $\Delta H_{v} > 0$ if $v$ has a B-inflow but no F-outflow in $\mathcal{G}_{T}$.\\
+	\textbf{(b)} $\Delta H_{v}$ may be positive, negative, or zero if $v$ has both a B-inflow and an F-outflow in $\mathcal{G}_{T}$.\\
+ \textbf{(c)} $\Delta H_v<0$ if $v$ has an F-outflow but no B-inflow in $\mathcal G_T$.\\
+	\label{lemma:Balance_of_H_v}\end{lemma}
+\quad \\ \quad \\(proof)\\*
+\textbf{(a)} Let $v$ have a B-inflow $(P,\{v\})$ but no F-outflow in $\mathcal G_T$. The strong blocking flows condition requires that F-outflow $(\{v\},P)$ exists in $\mathcal G_{T^{\dagger}}$, but no B-inflow to $v$ exists there. Then, from Lemma \ref{lemma:Vanishing_All}, $I_{(K_v):v'}|_v\ne 0$ and $I_{(Q'_v):v}|_{v'}=0$. Hence,
+\begin{equation}\begin{aligned}
+ \Delta H_v&=I_{(K_v):v'}|_v-I_{(Q'_v):v}|_{v'}\\
+ &=I_{(K_v):v'}|_v>0.
+\end{aligned}\end{equation}
+\textbf{(b)} Let $v$ have a B-inflow $(P,\{v\})$ and an F-outflow $(\{v\},Q)$ in $\mathcal G_T$. The strong blocking flows condition requires that F-outflow $(\{v\},P)$ and B-inflow $(Q,\{v\})$ exist in $\mathcal G_{T^{\dagger}}$. Then, from Lemma \ref{lemma:Vanishing_All}, $I_{(K_v):v'}|_v\ne 0$ and $I_{(Q'_v):v}|_{v'}\ne 0$, where $K_v$ and $Q_v$ are sets of dynamical neighbors and backward dynamical neighbors, respectively. Hence,
+\begin{equation}
+ \Delta H_v=I_{(K_v):v'}|_v-I_{(Q'_v):v}|_{v'}.
+\end{equation}
+The presence of the two flow types does not determine the sign of this difference.\\
+\textbf{(c)} If $v$ has an F-outflow but no B-inflow, then $I_{(K_v):v'}|_v=0$ and $I_{(Q'_v):v}|_{v'}>0$. Thus, $\Delta H_v<0$. $\blacksquare$\\
+
+\begin{proposition}
+	Consider an information flow hypergraph $\mathcal{G}_{\Delta I} = (\mathcal{G}_{T}, \mathcal{G}_{T^{\dagger}})$ satisfying the strong blocking flows condition, under deterministic reversible dynamics. A necessary condition for stationarity of entropy dynamics $(H_{v})_{v \in V}$ on the entire active graph is that every non-isolated vertex $v$ has both a B-inflow and an F-outflow in $\mathcal{G}_{T}$.\\
+	\label{prop:The_Necessary_Condition}\end{proposition}
+(proof)\\
+Stationarity requires $\Delta H_v=0$ for every vertex $v$. Therefore, the necessary condition is obtained by excluding the monotonic cases. Proposition \ref{prop:Strong_Blocking_Requirement} ensures that a non-isolated vertex has a B-inflow or an F-outflow. Lemma \ref{lemma:Balance_of_H_v} excludes the presence of only one of these types. Hence, both are required. Their aggregate contributions must also satisfy
+\begin{equation}
+ I_{(K_v):v'}|_v=I_{(Q'_v):v}|_{v'}.
+\end{equation}
+The presence of both flow types alone does not impose this numerical equality or imply stationarity of the joint distribution. $\blacksquare$ \\ \quad \\
+
+A cycle in graph theory satisfies the necessary condition of Proposition \ref{prop:The_Necessary_Condition}, as the directed edge of the cycle is both B-arc and F-arc.\\
+
+\section{\label{sec:Conclusion} Conclusion}
+
+Higher-order interactions can generate higher-order correlations that are not reducible to pairwise relationships. To characterize the topology of their temporal evolution, this paper introduced an information flow hypergraph by associating direct multiple transfer entropy and multiple reversed transfer entropy with hyperarcs. The BF-hypergraph substructure determines the entropy balance of 
+individual vertices, under the strong blocking flows condition and deterministic reversible dynamics, using $K_v$ and $Q_v$ for the two temporal directions. A finite BF-hypergraph without weak BF-hypercycles possesses a BF-sink and a BF-source. These assumptions require a non-isolated vertex to have a B-inflow or an F-outflow in a direct transfer entropy hypergraph $\mathcal{G}_{T}$. At a BF-sink of $\mathcal{G}_{T}$, the entropy increases strictly; at a BF-source, it decreases strictly. Consequently, periodic or recurrent entropy dynamics requires a weak BF-hypercycle when the nonempty flow topology is fixed and these assumptions hold at every step. However, a weak BF-hypercycle alone does not guarantee stationarity. A further necessary condition is that each non-isolated vertex has both a B-inflow and an F-outflow in $\mathcal{G}_{T}$, with numerically balanced aggregate contributions. This condition also clarifies the role of the residual term. A stationary state with a B-inflow but no compensating F-outflow is incompatible with the present assumptions. If backward reconstruction fails, the residual term in an entropy expansion need not vanish.\\
+
+The present analysis focuses on sinks, sources, and weak BF-hypercycles. Directed hypergraphs possess additional structural properties, including spectral properties of hypergraph Laplacians \cite{Jost2019}, that may provide further insight into information dynamics. Another natural extension is to study the relationship between an explosive behavior of higher-order dynamics \cite{Battiston2021} and information-dynamic stationarity discussed in this paper.\\
+
+
+\appendix
+\renewcommand{\theequation}{\thesection.\arabic{equation}}
+\section{\label{app:Proof_Transitive} Proof of Proposition \ref{prop:Transitive_Closure}}
+\subsection{\label{appsub:Main_Proof} Main Proof}
+One can establish a non-trivial example involving dependence in the initial distribution. Define $V=\{X,Y,C,\zeta\}$ with binary states and the deterministic reversible dynamics:
+\begin{equation}\begin{aligned}
+ &\Gamma_X(t+\Delta t)=\Gamma_C(t),\\
+ &\Gamma_C(t+\Delta t)=\Gamma_X(t),\\
+ &\Gamma_Y(t+\Delta t)=\Gamma_Y(t)\oplus\Gamma_\zeta(t),\\
+ &\Gamma_\zeta(t+\Delta t)=\Gamma_\zeta(t).
+\end{aligned}\end{equation}
+At the step under consideration, let $\Gamma_X=0$, let $\Gamma_C,\Gamma_\zeta$ be independent fair bits, and set $\Gamma_Y=\Gamma_C\oplus N$, where $N\sim B(\varepsilon)$ is independent of them and $0<\varepsilon<1/2$. The variable $N$ specifies the initial distribution. Define $h(\varepsilon):=-\varepsilon\ln\varepsilon-(1-\varepsilon)\ln(1-\varepsilon)$.\\
+Then, $K_X=\{C\}$, $K_Y=\{\zeta\}$, and $K_C=K_\zeta=\emptyset$. The only nonzero direct transfer-entropy hyperarcs are $C\to X$ and $\zeta\to Y$, both with value $\ln 2$. Indeed, any target containing $C$ or $\zeta$ contains a future variable determined by the conditioning variables. For the remaining joint target $\{X,Y\}$, $C$ and $\zeta$ are conditionally independent given $Y$, so its multiple transfer entropies from subsets of $K_{\{X,Y\}}=\{C,\zeta\}$ vanish. The imperfect correlation between $C$ and $Y$ does not provide another sufficient neighbor set for $X$.\\
+While $T_{Y\to X}=\ln 2-h(\varepsilon)>0$, $X$ is not connected to $Y$ in $\mathcal G_T$. Hence, $\mathcal G_T^*\ne\mathcal G_{total}^*$ in this example. $\blacksquare$\\
+
+The subsequent sections explain how initial dependence and common causes can yield indirect statistical relationships that are not represented by chains in $\mathcal G_T$.\\
+
+\subsection{\label{appsub:Total_neighbors} Total Neighbors}
+For a vertex set $S \subset V$, let $R^{1}_{S} \subset V$ be the union of possible dynamical neighbors of $S$: $R^{1}_{S} := \bigcup_{K_{S} \in \overline{\mathcal{K}}_{S}} K_{S}$. Then, define $R^{i+1}_{S} \subset V$ as the union of possible dynamical neighbors of $R^{i}_{S} \subset V$ for $i \in \Bbb N$: $R^{i+1}_{S} := \bigcup_{K_{R^{i}_{S}} \in \overline{\mathcal{K}}_{R^{i}_{S}}} K_{R^{i}_{S}}$. Since $V$ is finite, there is $N \in \Bbb N$ such that,
+\begin{equation}
+	\bigcup_{i=1}^{N} R^{i}_{S} = \bigcup_{i=1}^{\infty} R^{i}_{S}.
+\end{equation}
+An empty layer remains empty. Hence, the set of total neighbors of $S$ is defined as:
+\begin{equation}
+	K^{total}_{S} := \bigcup_{i=1}^{N} R^{i}_{S}.
+\end{equation}
+\quad \\ \quad \\ \quad \\ \quad \\ \quad \\ \quad \\
+\begin{lemma}
+	If $u \in K^{total}_{S}$, then $\exists s \in S$ such that $s$ is connected to $u$ in $\mathcal{G}_{T}$.
+	\label{lemma:In_Total_Neighbors}\end{lemma}
+(proof)\\
+It is enough to show that, for $u \in K_{S}$ for $K_{S} \in \overline{\mathcal{K}}_{S}$, $\exists (e^{+}, e^{-}) \in \overrightarrow{E}_{T}$ such that $u \in e^{+}$ and $e^{-} \cap S \not= \emptyset$. Let $K_{S} = \{ u \} \cup W$, and $S = \{ s_1, \dots, s_m \}$. By the definition of $K_{S}$, 
+\begin{equation}
+	H_{S'}|_{S \cup W} > 0.
+\end{equation}
+Then, there is $s \in S$ such that $H_{s'}|_{S \cup W} > 0$, as,
+\begin{equation}\begin{aligned}
+		H_{S'}|_{S \cup W} &= H_{s'_{1}}|_{S \cup W} + \sum_{i=2}^{m} H_{s'_{i}}|_{\{s'_{1}, \dots, s'_{i-1}\} \cup S \cup W}\\
+		&\leqslant \sum_{i=1}^{m} H_{s'_{i}}|_{S \cup W}.
+\end{aligned}\end{equation}
+Let $L_{s} := [S \setminus \{ s \}] \cup [K_{S} \setminus \{ u \}]$. As $H_{s'}|_{\{s, u\} \cup L_{s}} \leqslant H_{S'}|_{\{s, u\} \cup L_{s}} = 0$, $H_{s'}|_{\{s, u\} \cup L_{s}} = 0$. Thus, one can obtain a minimal subset $K_{s} \subset L_{s} \cup \{ u\}$ such that $H_{s'}|_{\{s\} \cup K_{s}} = 0$, by reducing the set $L_{s} \cup \{ u\}$. Since $H_{s'}|_{\{s\} \cup L_{s}} > 0$, $u \in K_{s}$. Then,
+\begin{equation}\begin{aligned}
+		T_{u \to s}|_{K_{s} \setminus \{ u \}} &:= H_{s'}|_{\{s\} \cup [K_{s} \setminus \{ u \}]} - H_{s'}|_{\{s\} \cup K_{s}}\\
+		&= H_{s'}|_{\{s\} \cup [K_{s} \setminus \{ u \}]} > 0.
+\end{aligned}\end{equation}
+Since,
+\begin{equation}
+ T_{u\to s}|_{K_s\setminus\{u\}}
+ =T_{u\to s}+\sum_{i=1}^{|K_s|-1}(-1)^i\sum_{W\subset K_s\setminus\{u\},\ |W|=i}T_{\{u\}\cup W\to\{s\}},
+\end{equation}
+there is a nonzero term $T_{e^{+} \to \{s\}}$ among $T_{u \to s}$, and $T_{\{ u \} \cup W \to \{s\}}$ with $k := |e^{+}|$. One can confirm $e^{+} \subset K_{s}$. Hence, the hyperarc $(e^{+}, \{ s\})$ is an element of $\overrightarrow{E}_{T}$. Given that $u \in e^{+}$, $s$ is connected to $u$ in $\mathcal{G}_{T}$.\\
+Applying this argument successively to the layers $R^j_S$, $1\leqslant j\leqslant N$, gives a weak hyperpath from $u$ to $S$. $\blacksquare$\\ \quad \\
+
+For the multi-step statements below, suppose that the neighbor relations used in these layers remain valid throughout the time interval. Then, the state dynamics of $S^{total} := S \cup K^{total}_{S}$ is autonomous: $\Gamma_{S^{total}}(t + \Delta t) = F(\Gamma_{S^{total}}(t) ,t)$, where $\Gamma_{S^{total}}(t) := (\Gamma_{w_{1}}(t), \dots, \Gamma_{w_{h}}(t))$ with $S^{total} = \{ w_{1}, \dots, w_{h}\}$.
+
+\subsection{\label{appsub:Two_Autonomous} Two Independent Autonomous Systems}
+Consider two total neighbors $S^{total}$ and $U^{total}$ such that $S^{total} \cap U^{total} = \emptyset$.
+\begin{lemma}
+	If $I^{co}_{S \cup U}(t_0) = 0$ for all nonempty $S \subset S^{total}$ and $U \subset U^{total}$, then $I^{co}_{S \cup U}(t) = 0$ and $T_{S \to U}(t) = 0$ for $t \geqslant t_{0}$.
+	\label{lemma:Two_Auto}\end{lemma}
+(proof)\\
+Since $S^{total}$ and $U^{total}$ are autonomous, one obtains,
+\begin{equation}\begin{aligned}
+		&\Gamma_{S^{total}}(t) = F_{t}(\Gamma_{S^{total}}(t_{0}))\\
+		&\Gamma_{U^{total}}(t') = G_{t'}(\Gamma_{U^{total}}(t_{0})),
+\end{aligned}\end{equation}
+for $t, t' \geqslant t_{0}$.\\
+On the other hand, if $I^{co}_{S \cup U}(t_0) = 0$ for all nonempty $S \subset S^{total}$ and $U \subset U^{total}$, then
+\[
+ H_{S^{total}}(t_0) - H_{S^{total}}|_{U^{total}}(t_0) = 0.
+\]
+This indicates the factorization of joint probability.\\
+As $S^{total} \cap U^{total} = \emptyset$ and statistically independent at $t = t_{0}$, $\Gamma_{S^{total}}(t)$ and $\Gamma_{U^{total}}(t')$ are statistically independent for $\forall t, t' \geqslant t_{0}$. $\blacksquare$
+
+\subsection{\label{appsub:Classification} Classification of Indirect Relationships}
+We analyze case by case whether $S$ is connected to $U$ in $\mathcal{G}_{T}$ for $\forall (U, S) \in \overrightarrow{E}_{total}$. Fix an arbitrary hyperarc $(U, S) \in \overrightarrow{E}_{total}$. If $U \cap K^{total}_{S} \not= \emptyset$, Lemma \ref{lemma:In_Total_Neighbors} requires that $S$ is connected to $U$ in $\mathcal{G}_{T}$. Let $U \cap K^{total}_{S} = \emptyset$.\\
+If $U^{total} \cap S^{total} = \emptyset$, Lemma \ref{lemma:Two_Auto} implies that $(U, S)$ cannot be an element of $\overrightarrow{E}_{total}$ under the condition of initial independence.\\
+Let $U^{total} \cap S^{total} \not= \emptyset$. Here, an element of $U^{total} \cap S^{total}$ can act as a common cause. The example in Sec. \ref{appsub:Main_Proof} instead uses dependence between disjoint autonomous systems in their initial distribution.
+
+\section{\label{app:Proof_Transitive_v2} The Proof of Proposition \ref{prop:Transitive_Closure_v2}}
+Since $\overrightarrow{E}_{\bar{T}} \subset \overrightarrow{E}_{total}$, it follows immediately that $\mathcal{G}_{\bar{T}}^{*} \subset \mathcal{G}_{total}^{*}$. It therefore remains to show that $\mathcal{G}_{total}^{*} \subset \mathcal{G}_{\bar{T}}^{*}$.\\ 
+Consider $(U, S) \in \overrightarrow{E}_{total}$, and fix $K_{S} \in \overline{\mathcal{K}}_{S}$. Then, $T_{U \to S} \not= 0$. If $U \cap K_{S} \not= \emptyset$, then $(U, S) \in \overrightarrow{E}_{\bar{T}}$ by definition. Let $U \cap K_{S} = \emptyset$. Here, $T_{U\to S}|_{K_S}:=I^{\text{co}}_{S'\cup U}|_{S\cup K_S}$, and its decomposition is obtained as:
+\begin{equation}
+	T_{U \to S}|_{K_{S}} = T_{U \to S} + \sum_{i=1}^{|K_{S}|} (-1)^{i}\sum_{W \subset K_{S}, |W|=i} T_{U \cup W \to S}.
+\end{equation}
+Since $T_{U \to S}|_{K_{S}} = 0$ and $T_{U \to S} \not= 0$, there is a nonzero term $T_{U \cup W \to S}$ for $\emptyset \not= W \subset K_{S}$ and $i = |W|$. Therefore, the hyperarc $(U \cup W, S) \in \overrightarrow{E}_{total}$, and one concludes that $(U \cup W, S) \in \overrightarrow{E}_{\bar{T}}$ from the fact that $(U \cup W) \cap K_{S} = W \not= \emptyset$. The new hyperarc connects every $u\in U$ to every $s\in S$, so replacing hyperarcs along a weak hyperpath preserves its endpoints. This leads to $\mathcal{G}_{total}^{*} \subset \mathcal{G}_{\bar{T}}^{*}$. $\blacksquare$
+
+\section{\label{app:Identification_Examples}Examples of Hyperarc}
+The following examples illustrate local flow quantities with stochastic inputs. The focal updates are deterministic given their inputs, but backward reconstruction of all vertices is not assumed. Thus, these examples are not used as realizations of the reversible framework of the main propositions. The closed copying dynamics in Sec. \ref{sec:Identification_Blocking_Condition} supplies such a realization.\\
+\subsection{\label{app:Identification_Examples_B} A Single B-arc}
+Consider a three-component system $a$, $b$, and $p$ with the dynamics:
+\begin{equation}\begin{aligned}
+		&\Gamma_{a}(t + \Delta t) \sim B(\frac{1}{2})\\
+		&\Gamma_{b}(t + \Delta t) \sim B(\frac{1}{2})\\
+		&\Gamma_{p}(t + \Delta t) = \Gamma_{a}(t) \oplus \Gamma_{b}(t),\\
+\end{aligned}\end{equation}
+where the updates of $\Gamma_a$ and $\Gamma_b$ are independent of each other and of the current state, $B(q)$ denotes Bernoulli distribution with probability $q$, and $\oplus$ denotes the XOR operation. We evaluate the quantities under the invariant distribution of independent fair bits.\\
+Then,
+\begin{equation}\begin{aligned}
+		&T_{a \to p} = T_{b \to p} = 0\\
+		&T^{\dagger}_{p \to a} = T^{\dagger}_{p \to b} = 0\\
+		&T_{\{a,b\} \to \{p\}} = - \ln 2\\
+		&T^{\dagger}_{\{p\} \to \{a,b\}} = - \ln 2\\
+		&T_{\{p\} \to \{a,b\}} = T^{\dagger}_{\{a,b\} \to \{p\}} = 0.
+\end{aligned}\end{equation}
+These quantities describe a B-channel $\{a,b\}\to\{p\}$ and its reversed counterpart. At the focal vertex $p$, $K_p=\{a,b\}$, but $\alpha_1^{K_p\to p}=-\ln 2$. The displayed future variables do not reconstruct its past state. Thus, the local channel correspondence does not establish the reversible assumptions for the whole system.
+
+\subsection{\label{app:Identification_Examples_F} A Single F-arc}
+Consider a four-component system $p$, $\zeta$, $d$, and $e$ with the dynamics:
+\begin{equation}\begin{aligned}
+		&\Gamma_{p}(t + \Delta t) \sim B(\frac{1}{2})\\
+		&\Gamma_{\zeta}(t + \Delta t) \sim B(\frac{1}{2})\\
+		&(\Gamma_{d}, \Gamma_{e})(t + \Delta t) = 
+		\begin{cases}
+			(\Gamma_{\zeta}(t), \Gamma_{\zeta}(t)) & \text{if } \Gamma_{p}(t)=1\\
+			(\Gamma_{\zeta}(t), 1-\Gamma_{\zeta}(t)) & \text{if } \Gamma_{p}(t)=0
+		\end{cases},\\
+		\label{eq:Stochastic_inverse}\end{aligned}\end{equation}
+where the updates of $\Gamma_p$ and $\Gamma_\zeta$ are independent of each other and of the current state. We evaluate the quantities under the invariant distribution of independent fair bits.\\
+This dynamics provides a stochastic inverse of the XOR operation after relabeling the input as $1-\Gamma_p$. Then,
+\begin{equation}\begin{aligned}
+		&T_{p \to d} = T_{p \to e} = 0\\
+		&T^{\dagger}_{d \to p} = T^{\dagger}_{e \to p} = 0\\
+		&T_{\{p\} \to \{d,e\}} = - \ln 2\\
+		&T^{\dagger}_{\{d,e\} \to \{p\}} = - \ln 2\\
+		&T_{\{d,e\} \to \{p\}} = T^{\dagger}_{\{p\} \to \{d,e\}} = 0.
+\end{aligned}\end{equation}
+The remaining nonzero channels for the focal targets are
+\begin{equation}\begin{aligned}
+ T_{\zeta\to d}&=\ln 2,\\
+ T_{\{p,\zeta\}\to\{e\}}&=T_{\{p,\zeta\}\to\{d,e\}}=-\ln 2.
+\end{aligned}\end{equation}
+Their reversed counterparts are
+\begin{equation}\begin{aligned}
+ T^{\dagger}_{d\to\zeta}&=\ln 2,\\
+ T^{\dagger}_{\{e\}\to\{p,\zeta\}}&=T^{\dagger}_{\{d,e\}\to\{p,\zeta\}}=-\ln 2.
+\end{aligned}\end{equation}
+Thus, the F-channel $\{p\}\to\{d,e\}$ is part of a larger local support, including a B-channel and a channel with multiple vertices in both tail and head. These local quantities have the corresponding reversal of support, but the stochastic input system is not asserted to possess all backward dynamical-neighbor sets.
+
+\bibliographystyle{comnet}
+\bibliography{mybib}
+
+\end{document}
